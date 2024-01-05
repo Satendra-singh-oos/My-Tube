@@ -2,49 +2,37 @@ import { User } from "../models/user.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
-import { userSchema } from "../validations/user.validation.js";
+import { userSchemaValidation } from "../validations/user.validation.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
-/*
-* post 
-* RegisterUser :-1) will get userInfo from body
-* 2) validation of the data with the help of zod
-* 3) then finding  is user alredy exist
-* 4) then upload the image to cloudnairy 
-* 5) and save user data to the db
-* 6) return the resoponse exculing -password
- 
-*/
+/**
+ * Register a new user.
+ *
+ * POST /api/v1/users/register
+ *
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @returns {Object} - JSON response containing the registered user data (excluding password).
+ *
+ * @throws {ApiError} - Throws an ApiError with status code and message in case of validation or registration failure.
+ */
 
 const registerUser = asyncHandler(async (req, res) => {
   try {
     // validating the incoming values
-    const validationResult = userSchema.safeParse(req.body);
+    const { error, value } = userSchemaValidation.validate(req.body);
 
-    const { username, email, fullName, password } = validationResult.data;
-
-    if (!validationResult.success) {
-      const validationErrors = validationResult.error.errors;
-      const formattedErrors = validationErrors.map((error) => {
-        const path = error.path.join(".");
-        return `${path}: ${error.message}`;
-      });
-
-      throw new ApiError(
-        400,
-        formattedErrors,
-        "Validation failed. Please check the following fields:"
-      );
+    if (error) {
+      // Joi validation failed
+      throw new ApiError(400, error.message);
     }
-
-    const avatarLocalPath = req.files?.avatar[0]?.path;
+    const { fullName, username, email, password } = value;
+    const avatarLocalPath = req.files?.avatar && req.files?.avatar[0]?.path;
+    const coverImageLocalPath = req.files?.coverImage[0]?.path;
 
     if (!avatarLocalPath) {
       throw new ApiError(400, "Avatar must be needed to create your profile");
     }
-
-    const coverImageLocalPath = req.files?.coverImage[0]?.path;
-
     const existingUser = await User.findOne({
       $or: [{ username }, { email }],
     });
@@ -86,5 +74,7 @@ const registerUser = asyncHandler(async (req, res) => {
     );
   }
 });
+
+// const loginUser = asyncHandler(async (req,res)=>{})
 
 export { registerUser };
