@@ -39,12 +39,6 @@ const genrateAccessAndRefreshToken = async (userId) => {
  * Register a new user.
  *
  * POST /api/v1/users/register
- *
- * @param {Object} req - Express request object.
- * @param {Object} res - Express response object.
- * @returns {Object} - JSON response containing the registered user data (excluding password).
- *
- * @throws {ApiError} - Throws an ApiError with status code and message in case of validation or registration failure.
  */
 
 const registerUser = asyncHandler(async (req, res) => {
@@ -116,12 +110,6 @@ const registerUser = asyncHandler(async (req, res) => {
  * Log in a user.
  *
  * POST /api/users/login
- *
- * @param {Object} req - Express request object.
- * @param {Object} res - Express response object.
- * @returns {Object} - JSON response containing the logged-in user data, access token, and refresh token.
- *
- * @throws {ApiError} - Throws an ApiError with status code and message in case of validation or login failure.
  */
 
 const loginUser = asyncHandler(async (req, res) => {
@@ -193,12 +181,6 @@ const loginUser = asyncHandler(async (req, res) => {
  * Logout a user.
  *
  * POST /api/users/logout
- *
- * @param {Object} req - Express request object.
- * @param {Object} res - Express response object.
- * @returns {Object} - JSON response indicating successful user logout.
- *
- * @throws {ApiError} - Throws an ApiError with status code and message in case of logout failure.
  */
 
 const logoutUser = asyncHandler(async (req, res) => {
@@ -241,12 +223,6 @@ const logoutUser = asyncHandler(async (req, res) => {
  * Refresh access token using a valid refresh token.
  *
  * POST /api/users/refresh-token
- *
- * @param {Object} req - Express request object.
- * @param {Object} res - Express response object.
- * @returns {Object} - JSON response containing the new access token and refresh token.
- *
- * @throws {ApiError} - Throws an ApiError with status code and message in case of refresh token validation or generation failure.
  */
 const refreshAccessToken = asyncHandler(async (req, res) => {
   /*
@@ -317,12 +293,6 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
  * Change the current user's password.
  *
  * POST /api/users/change-password
- *
- * @param {Object} req - Express request object.
- * @param {Object} res - Express response object.
- * @returns {Object} - JSON response indicating success or error in changing the password.
- *
- * @throws {ApiError} - Throws an ApiError with status code and message in case of validation or password change failure.
  */
 const changeCurrentPassword = asyncHandler(async (req, res) => {
   try {
@@ -369,12 +339,6 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
  * get the current user .
  *
  * POST /api/users/getCurrentUser
- *
- * @param {Object} req - Express request object.
- * @param {Object} res - Express response object.
- * @returns {Object} - JSON response indicating success or error in changing the password.
- *
- * @throws {ApiError} - Throws an ApiError with status code and message in case of validation or password change failure.
  */
 const getCurrentUser = asyncHandler(async (req, res) => {
   try {
@@ -400,12 +364,6 @@ const getCurrentUser = asyncHandler(async (req, res) => {
  * Update user account details.
  *
  * POST /api/users/update-account
- *
- * @param {Object} req - Express request object.
- * @param {Object} res - Express response object.
- * @returns {Object} - JSON response containing the updated user details.
- *
- * @throws {ApiError} - Throws an ApiError with status code and message in case of validation or account update failure.
  */
 const updateUserAccountDetails = asyncHandler(async (req, res) => {
   try {
@@ -456,12 +414,6 @@ const updateUserAccountDetails = asyncHandler(async (req, res) => {
  * Update user avatar.
  *
  * PATCH /api/users/update-avatar
- *
- * @param {Object} req - Express request object.
- * @param {Object} res - Express response object.
- * @returns {Object} - JSON response containing the updated user details.
- *
- * @throws {ApiError} - Throws an ApiError with status code and message in case of errors.
  */
 const updateUserAvatar = asyncHandler(async (req, res) => {
   /*
@@ -528,12 +480,6 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
  * Update user avatar.
  *
  * PATCH /api/users/update-coverImage
- *
- * @param {Object} req - Express request object.
- * @param {Object} res - Express response object.
- * @returns {Object} - JSON response containing the updated user details.
- *
- * @throws {ApiError} - Throws an ApiError with status code and message in case of errors.
  */
 const updateUserCoverImage = asyncHandler(async (req, res) => {
   /*
@@ -771,15 +717,9 @@ const getWatchHistory = asyncHandler(async (req, res) => {
 });
 
 /**
- * Add vedio to user history.
+ * Add video to user history.
  *
  * PATCH /api/users/update-coverImage
- *
- * @param {Object} req - Express request object.
- * @param {Object} res - Express response object.
- * @returns {Object} - JSON response containing the updated user details.
- *
- * @throws {ApiError} - Throws an ApiError with status code and message in case of errors.
  */
 
 const addVideoToUserWatchHistory = asyncHandler(async (req, res) => {
