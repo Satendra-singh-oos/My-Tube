@@ -19,10 +19,13 @@ const userSchemaValidation = Joi.object({
   email: Joi.string().email().message("Email type is not correct").required(),
 
   password: Joi.string()
+    .pattern(/^[A-Za-z0-9@]+$/)
     .required()
     .min(4)
     .max(12)
-    .message("Password must be between 4 and 12 characters"),
+    .message(
+      "Password must be between 4 and 12 characters and a special charater is allowed"
+    ),
 });
 
 const loginValidation = Joi.object({

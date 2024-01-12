@@ -38,4 +38,19 @@ router
 
 router.route("/toggle/publish/:videoId").patch(togglePublishStatus);
 
+router.route("/getAllVideos").get(getAllVideos);
+router.route("/publish-video").post(
+  upload.fields([
+    {
+      name: "videoFile",
+      maxCount: 1,
+    },
+    {
+      name: "thumbnail",
+      maxCount: 1,
+    },
+  ]),
+  publishAVideo
+);
+
 export default router;

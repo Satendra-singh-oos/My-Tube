@@ -464,9 +464,9 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
 
     const response = await deleteFileOnCloudinary(oldAvatarCloudinaryUrl);
 
-    if (response.result !== "ok") {
-      throw new ApiError(500, "Failed to delete file on Cloudinary");
-    }
+    // if (response.result !== "ok") {
+    //   throw new ApiError(500, "Failed to delete old file on Cloudinary");
+    // }
 
     return res
       .status(200)

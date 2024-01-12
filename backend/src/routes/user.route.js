@@ -52,6 +52,8 @@ router.route("/channel/:username").get(verifyJWT, getUserChannelProfile);
 
 router.route("/watch-history").get(verifyJWT, getWatchHistory);
 
-router.route("/watch-history").post(verifyJWT, addVideoToUserWatchHistory);
+router
+  .route("/watch-history/:videoId")
+  .post(verifyJWT, addVideoToUserWatchHistory);
 
 export default router;
