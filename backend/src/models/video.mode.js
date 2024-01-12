@@ -47,6 +47,7 @@ const videoSchema = new Schema(
   { timestamps: true }
 );
 
+// we can't give all the video to the user we need to give in form of pagination
 videoSchema.plugin(mongooseAggregatePaginate);
 
 export const Video = mongoose.model("Video", videoSchema);
