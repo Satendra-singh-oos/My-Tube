@@ -50,13 +50,13 @@ const publishAVideo = asyncHandler(async (req, res) => {
     // upload files on Cloudinary
 
     const video = await uploadOnCloudinary(videoLocalPath);
-    if (video === null) {
+    if (!video.url) {
       throw new ApiError(404, "Something Went Wrong ON Uplaoding video");
     }
 
     const thumbnail = await uploadOnCloudinary(thumbnailLocalPath);
 
-    if (thumbnail === null) {
+    if (!thumbnail.url) {
       throw new ApiError(404, "Something Went Wrong ON Uplaoding Thumbnail");
     }
 
@@ -77,10 +77,12 @@ const publishAVideo = asyncHandler(async (req, res) => {
         "Something Went Wrong During The Save And Publish of The Video"
       );
     }
+    const newVideoId = newVideo._id;
+    const publishedVideo = await newVideo.findById(newVideoId).select("-owner");
 
     return res
       .status(200)
-      .json(new ApiResponse(200, newVideo, "Succesfully Uploaded Video"));
+      .json(new ApiResponse(200, publishedVideo, "Succesfully Uploaded Video"));
   } catch (error) {
     throw new ApiError(500, error?.message);
   }
@@ -91,6 +93,7 @@ const getVideoById = asyncHandler(async (req, res) => {
   Step1:- extract video id from params
   Step2:- search the vedio in db 
   Step3:- if present then send repsosne else send error
+   TODO:-logic of getting like and comments  the user which getting the video is subscribed or not  and after getting the video add these videoId in user WatchHistory
    */
   try {
     const { videoId } = req.params;
@@ -143,7 +146,7 @@ const updateVideo = asyncHandler(async (req, res) => {
     }
 
     // Comparing the userId with the video Owner id
-    if (userId.toString() !== video.owner.toString()) {
+    if (userId.toString() !== video?.owner.toString()) {
       throw new ApiError(
         404,
         "You Are Not Authorized To update the video details"
@@ -151,10 +154,8 @@ const updateVideo = asyncHandler(async (req, res) => {
     }
 
     const newThumbnailLocalPath = req.file?.path;
-
+    const oldThumbnailUrl = video.thumbnail;
     if (newThumbnailLocalPath) {
-      const oldThumbnailUrl = video.thumbnail;
-
       const newThumbnail = await uploadOnCloudinary(newThumbnailLocalPath);
 
       if (!newThumbnail.url) {
@@ -163,15 +164,15 @@ const updateVideo = asyncHandler(async (req, res) => {
 
       // saving the updated url
       video.thumbnail = newThumbnail.url;
-
-      // delting the old file from the
-      await deleteFileOnCloudinary(oldThumbnailUrl);
     }
 
     video.title = title || video.title;
     video.description = description || description;
 
     const updatedVideo = await video.save();
+
+    // delting the old file from the Cloudinary
+    await deleteFileOnCloudinary(oldThumbnailUrl);
 
     return res
       .status(200)
