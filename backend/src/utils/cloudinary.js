@@ -28,19 +28,17 @@ const uploadOnCloudinary = async (localFilePath) => {
   }
 };
 
-const deleteFileOnCloudinary = async (cloudinaryUrl) => {
+const deleteFileOnCloudinary = async (cloudinaryUrl, resource_type) => {
   try {
     if (!cloudinaryUrl) {
       return null;
     }
 
-    const publicId = await cloudinary
-      .url(cloudinaryUrl, { type: "authenticated" })
-      .split("/")
-      .pop()
-      .split(".")[0];
+    const public_id = cloudinaryUrl.split("/").pop().split(".")[0];
 
-    const response = await cloudinary.uploader.destroy(publicId);
+    const response = await cloudinary.uploader.destroy(public_id, {
+      resource_type: resource_type,
+    });
 
     return response;
   } catch (error) {

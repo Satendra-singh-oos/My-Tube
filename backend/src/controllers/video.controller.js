@@ -77,12 +77,10 @@ const publishAVideo = asyncHandler(async (req, res) => {
         "Something Went Wrong During The Save And Publish of The Video"
       );
     }
-    const newVideoId = newVideo._id;
-    const publishedVideo = await newVideo.findById(newVideoId).select("-owner");
 
     return res
       .status(200)
-      .json(new ApiResponse(200, publishedVideo, "Succesfully Uploaded Video"));
+      .json(new ApiResponse(200, newVideo, "Succesfully Uploaded Video"));
   } catch (error) {
     throw new ApiError(500, error?.message);
   }
@@ -93,7 +91,8 @@ const getVideoById = asyncHandler(async (req, res) => {
   Step1:- extract video id from params
   Step2:- search the vedio in db 
   Step3:- if present then send repsosne else send error
-   TODO:-logic of getting like and comments  the user which getting the video is subscribed or not  and after getting the video add these videoId in user WatchHistory
+   Step 3:- if present create a mongodb aggregation pipline case we want to send the TotalLike, is videoAlreadyLiked ,isUserSubscribed to the channel , channel profile like(channel name , channel avatar , channelTotalSubs)
+  TODO:-logic of getting like and comments  the user which getting the video is subscribed or not  and after getting the video add these videoId in user WatchHistory
    */
   try {
     const { videoId } = req.params;
@@ -103,6 +102,7 @@ const getVideoById = asyncHandler(async (req, res) => {
     }
 
     const getVideo = await Video.findById(videoId);
+
     if (!getVideo) {
       throw new ApiError(404, "No Video Found");
     }
@@ -155,25 +155,29 @@ const updateVideo = asyncHandler(async (req, res) => {
 
     const newThumbnailLocalPath = req.file?.path;
     const oldThumbnailUrl = video.thumbnail;
-    if (newThumbnailLocalPath) {
-      const newThumbnail = await uploadOnCloudinary(newThumbnailLocalPath);
 
-      if (!newThumbnail.url) {
-        throw new ApiError(404, "Unable to upload the thumbnail");
-      }
+    const updatedVideo = await Video.findByIdAndUpdate(
+      videoId,
+      {
+        $set: {
+          title: title || video.title,
+          description: description || video.description,
+          thumbnail: newThumbnailLocalPath
+            ? (await uploadOnCloudinary(newThumbnailLocalPath)).url
+            : video.thumbnail,
+        },
+      },
+      { new: true }
+    );
 
-      // saving the updated url
-      video.thumbnail = newThumbnail.url;
+    if (!updatedVideo) {
+      throw new ApiError(404, "Unable to update the video or wrong video id");
     }
 
-    video.title = title || video.title;
-    video.description = description || description;
-
-    const updatedVideo = await video.save();
-
     // delting the old file from the Cloudinary
-    await deleteFileOnCloudinary(oldThumbnailUrl);
-
+    if (newThumbnailLocalPath) {
+      await deleteFileOnCloudinary(oldThumbnailUrl, "image");
+    }
     return res
       .status(200)
       .json(new ApiResponse(200, updatedVideo, "Succesfully Update the Video"));
@@ -206,12 +210,18 @@ const deleteVideo = asyncHandler(async (req, res) => {
       throw new ApiError(404, "You Are Not Authorized To Delte the video ");
     }
 
-    const deletedVideo = await deleteFileOnCloudinary(video.videoFile);
+    const deletedVideo = await deleteFileOnCloudinary(video.videoFile, "video");
 
-    const deltedThumbnail = await deleteFileOnCloudinary(video.thumbnail);
+    if (deletedVideo.result !== "ok") {
+      throw new ApiError(500, "Failed to delete Video file on Cloudinary");
+    }
+    const deletedThumbnail = await deleteFileOnCloudinary(
+      video.thumbnail,
+      "image"
+    );
 
-    if (deletedVideo.result !== "ok" || deltedThumbnail.result !== "ok") {
-      throw new ApiError(500, "Failed to delete old file on Cloudinary");
+    if (deletedThumbnail.result !== "ok") {
+      throw new ApiError(500, "Failed to delete Thumbanialfile on Cloudinary");
     }
 
     await Video.findByIdAndDelete(videoId);

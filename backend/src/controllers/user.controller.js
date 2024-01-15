@@ -462,11 +462,14 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
       { new: true }
     ).select("-password -refreshToken");
 
-    const response = await deleteFileOnCloudinary(oldAvatarCloudinaryUrl);
+    const response = await deleteFileOnCloudinary(
+      oldAvatarCloudinaryUrl,
+      "image"
+    );
 
-    // if (response.result !== "ok") {
-    //   throw new ApiError(500, "Failed to delete old file on Cloudinary");
-    // }
+    if (response.result !== "ok") {
+      throw new ApiError(500, "Failed to delete old file on Cloudinary");
+    }
 
     return res
       .status(200)
@@ -528,7 +531,10 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
       { new: true }
     ).select("-password -refreshToken");
 
-    const response = await deleteFileOnCloudinary(oldCoverImageCloudinaryUrl);
+    const response = await deleteFileOnCloudinary(
+      oldCoverImageCloudinaryUrl,
+      "image"
+    );
 
     if (response.result !== "ok") {
       throw new ApiError(500, "Failed to delete file on Cloudinary");
