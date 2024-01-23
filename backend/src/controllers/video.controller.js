@@ -11,8 +11,96 @@ import {
 import { videoSchemaValidation } from "../validations/video.validation.js";
 
 const getAllVideos = asyncHandler(async (req, res) => {
-  const { page = 1, limit = 10, query, sortBy, sortType, userId } = req.query;
-  //TODO: get all videos based on query, sort, pagination
+  /*
+   
+   step1 :- we will get the info form the query 
+   step2- we have mongooseAggregatePagination plugin 
+  */
+  try {
+    const { page = 1, limit = 10, query, sortBy, sortType, userId } = req.query;
+    //TODO: get all videos based on query, sort, pagination
+    /*
+     Throw these api you will get all the video with the query(search by titile ),sortBy,SortType and userId(by these query you can get all video by the following user with perticular userId)
+    */
+
+    const options = {
+      page: parseInt(page, 10),
+      limit: parseInt(limit, 10),
+    };
+    const pipeline = [];
+
+    // first will match those video which isPublished true
+    pipeline.push({
+      $match: {
+        isPublished: true,
+      },
+    });
+
+    // will match the title
+    if (query) {
+      pipeline.push({
+        $match: {
+          title: {
+            $regex: query,
+            $options: "i",
+          },
+        },
+      });
+    }
+
+    if (userId) {
+      pipeline.push({
+        $match: {
+          owner: new mongoose.Types.ObjectId(userId),
+        },
+      });
+    }
+
+    //sortBy can be views, createdAt, duration
+    //sortType can be ascending(-1) or descending(1)
+
+    if (sortBy && sortType) {
+      pipeline.push({
+        $sort: {
+          [sortBy]: sortType === "asc" ? 1 : -1,
+        },
+      });
+    } else {
+      pipeline.push({ $sort: { createdAt: -1 } });
+    }
+
+    pipeline.push(
+      {
+        $lookup: {
+          from: "users",
+          localField: "owner",
+          foreignField: "_id",
+          as: "channelInfo",
+          pipeline: [
+            {
+              $project: {
+                username: 1,
+                avatar: 1,
+              },
+            },
+          ],
+        },
+      },
+      {
+        $unwind: "$channelInfo",
+      }
+    );
+
+    const videosAggregate = Video.aggregate(pipeline);
+
+    const vidos = await Video.aggregatePaginate(videosAggregate, options);
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, vidos, "Videos fetched successfully"));
+  } catch (error) {
+    throw new ApiError(500, error?.message);
+  }
 });
 
 const publishAVideo = asyncHandler(async (req, res) => {
@@ -91,21 +179,151 @@ const getVideoById = asyncHandler(async (req, res) => {
   Step1:- extract video id from params
   Step2:- search the vedio in db 
   Step3:- if present then send repsosne else send error
-   Step 3:- if present create a mongodb aggregation pipline case we want to send the TotalLike, is videoAlreadyLiked ,isUserSubscribed to the channel , channel profile like(channel name , channel avatar , channelTotalSubs)
-  TODO:-logic of getting like and comments  the user which getting the video is subscribed or not  and after getting the video add these videoId in user WatchHistory
-   */
+   Step 3:- if present create a mongodb aggregation pipline case we want to send the
+    is videoAlreadyLiked ,
+    totalSubscriberof channel, isUserSubscribed to the channel , 
+    channel info like(channel name , channel avatar , channelTotalSubs),
+    total View and also increse the video view count,
+    push the id in userWatchHistory
+    also increse the view count
+    Step4:-Adde video to user history 
+
+    TODO:Check THis pipeline after the createion of other controller i guess it is wrong
+    TODO: 2 Video Db Call make it 1 
+
+  */
   try {
     const { videoId } = req.params;
+    const userId = req.user?._id;
 
     if (!videoId) {
       throw new ApiError(404, "Video id is required");
     }
 
-    const getVideo = await Video.findById(videoId);
+    // increse view count
+    const video = await Video.findByIdAndUpdate(videoId, {
+      $inc: {
+        views: 1,
+      },
+    });
+
+    if (!video) {
+      throw new ApiError(404, "No Video Found");
+    }
+
+    const getVideo = await Video.aggregate([
+      {
+        $match: {
+          _id: new mongoose.Types.ObjectId(videoId),
+          isPublished: true,
+        },
+      },
+      {
+        $lookup: {
+          from: "subscriptions",
+          localField: "owner",
+          foreignField: "channel",
+          as: "subscribers",
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "owner",
+          foreignField: "_id",
+          as: "channelInfo",
+          pipeline: [
+            {
+              $project: {
+                username: 1,
+                avatar: 1,
+              },
+            },
+          ],
+        },
+      },
+      {
+        $lookup: {
+          from: "likes",
+          localField: "_id",
+          foreignField: "video",
+          as: "videoLikes",
+        },
+      },
+      {
+        $lookup: {
+          from: "comments",
+          localField: "_id",
+          foreignField: "video",
+          as: "videoComments",
+        },
+      },
+      {
+        $addFields: {
+          subscribersCount: {
+            $size: "$subscribers",
+          },
+          isUserSubscribed: {
+            $cond: {
+              if: { $in: [userId, "$subscribers.subscriber"] },
+              then: true,
+              else: false,
+            },
+          },
+          totalLikes: {
+            $size: "$videoLikes",
+          },
+          isUserLiked: {
+            $cond: {
+              if: { $in: [userId, "$videoLikes.likedBy"] },
+              then: true,
+              else: false,
+            },
+          },
+          totalComments: {
+            $size: "$videoComments",
+          },
+          channelInfo: {
+            $first: "$channelInfo",
+          },
+        },
+      },
+
+      {
+        $project: {
+          videoFile: 1,
+          thumbnail: 1,
+          title: 1,
+          description: 1,
+          duration: 1,
+          views: 1,
+          isPublished: 1,
+          subscribersCount: 1,
+          isUserSubscribed: 1,
+          totalLikes: 1,
+          isUserLiked: 1,
+          totalComments: 1,
+          channelInfo: 1,
+        },
+      },
+    ]);
 
     if (!getVideo) {
       throw new ApiError(404, "No Video Found");
     }
+
+    if (getVideo.length == 0) {
+      throw new ApiError(401, "Video is Private || Empty Video");
+    }
+
+    // pushing video in user watch history
+    // $addToSet The operator adds a value to an array unless the value is already present
+
+    await User.findByIdAndUpdate(userId, {
+      $addToSet: {
+        watchHistory: videoId,
+      },
+    });
 
     return res
       .status(200)
