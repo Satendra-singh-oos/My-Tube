@@ -316,6 +316,14 @@ const getVideoById = asyncHandler(async (req, res) => {
       throw new ApiError(401, "Video is Private || Empty Video");
     }
 
+    // increse view  (fronten will show +1 from there side )
+    // cause if someone clicked and  his internet got off it will increse the iew count in db which is not good i guees ?
+    //   await Video.findByIdAndUpdate(videoId, {
+    //   $inc: {
+    //     views: 1,
+    //   },
+    // });
+
     // pushing video in user watch history
     // $addToSet The operator adds a value to an array unless the value is already present
 
