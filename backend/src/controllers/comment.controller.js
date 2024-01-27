@@ -8,6 +8,15 @@ import { commentSchemaValidation } from "../validations/comment.validation.js";
 
 const getVideoComments = asyncHandler(async (req, res) => {
   //TODO: get all comments for a video
+  /*
+    1) Get The Video Id From The params
+    2) now we genrate the aggregation query to  get the following data 
+     - content of the comment
+     - comment owner data like [username,avatar]
+     - total likes on the comment 
+     - is current user which is watching the comment is he liked the comment or not
+    3) now we will integrate the with aggregatePaginate to show the pagination view (will take page and limit from query)
+   */
   const { videoId } = req.params;
   const { page = 1, limit = 10 } = req.query;
 
