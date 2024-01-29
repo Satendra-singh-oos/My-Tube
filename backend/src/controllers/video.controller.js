@@ -332,11 +332,15 @@ const getVideoById = asyncHandler(async (req, res) => {
     // pushing video in user watch history
     // $addToSet The operator adds a value to an array unless the value is already present
 
-    await User.findByIdAndUpdate(userId, {
-      $addToSet: {
-        watchHistory: videoId,
+    await User.findByIdAndUpdate(
+      userId,
+      {
+        $addToSet: {
+          watchHistory: videoId,
+        },
       },
-    });
+      { new: true }
+    );
 
     return res
       .status(200)
