@@ -194,6 +194,11 @@ const getVideoById = asyncHandler(async (req, res) => {
   */
   try {
     const { videoId } = req.params;
+
+    if (!isValidObjectId(videoId)) {
+      throw new ApiError(400, "Invalid videoId");
+    }
+
     const userId = req.user?._id;
 
     if (!videoId) {
@@ -356,6 +361,11 @@ const updateVideo = asyncHandler(async (req, res) => {
   */
   try {
     const { videoId } = req.params;
+
+    if (!isValidObjectId(videoId)) {
+      throw new ApiError(400, "Invalid videoId");
+    }
+
     const userId = req.user?._id;
 
     const { error, value } = videoSchemaValidation.validate(req.body);
@@ -423,6 +433,11 @@ const deleteVideo = asyncHandler(async (req, res) => {
   */
   try {
     const { videoId } = req.params;
+
+    if (!isValidObjectId(videoId)) {
+      throw new ApiError(400, "Invalid videoId");
+    }
+
     const userId = req.user?._id;
 
     const video = await Video.findById(videoId);
@@ -471,6 +486,9 @@ const togglePublishStatus = asyncHandler(async (req, res) => {
    */
   try {
     const { videoId } = req.params;
+    if (!isValidObjectId(videoId)) {
+      throw new ApiError(400, "Invalid videoId");
+    }
 
     const userId = req.user?._id;
 
