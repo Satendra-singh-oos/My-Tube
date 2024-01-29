@@ -45,6 +45,13 @@ const getUserPlaylists = asyncHandler(async (req, res) => {
   1) get the userId from the params
   2) compare the userId with the owner in the playlist
   3) send repsonse accordingly
+  4) using aggreagation pipline 
+   fetching folwoing data
+   -Playlist Name
+   -Playlist Description
+   -Playlist TotalVideo
+   -Playlist Total Views(combining the views of each video)
+   -latest video which added in playlist fetching thubmanial of that video
    */
   try {
     const { userId } = req.params;
@@ -113,6 +120,21 @@ const getUserPlaylists = asyncHandler(async (req, res) => {
 
 const getPlaylistById = asyncHandler(async (req, res) => {
   //TODO: get playlist by id
+
+  /*
+   useing aggreagation pipeling
+   fetching the following data
+   -Playlist name
+   -Playlist Description
+   -Playlist Created At
+   -Playlist Updated At
+   -Playlist videos
+   -playlist videos owner info(username,avatar)
+   -playlist Owner info(usernam,avata,totalSubcriber of the playlist owner)
+   -Total Video in playlist
+   -Total Views of all the video(combining the views of all the video in playlist)
+
+  */
   try {
     const { playlistId } = req.params;
 
