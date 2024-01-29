@@ -145,21 +145,37 @@ const getPlaylistById = asyncHandler(async (req, res) => {
                 localField: "owner",
                 foreignField: "_id",
                 as: "owner",
-                pipeline: [
-                  {
-                    $project: {
-                      fullName: 1,
-                      username: 1,
-                      avatar: 1,
-                    },
-                  },
-                ],
               },
             },
             {
               $addFields: {
                 owner: {
                   $first: "$owner",
+                },
+              },
+            },
+          ],
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "owner",
+          foreignField: "_id",
+          as: "playlistOwner",
+          pipeline: [
+            {
+              $lookup: {
+                from: "subscriptions",
+                localField: "_id",
+                foreignField: "channel",
+                as: "subscriber",
+              },
+            },
+            {
+              $addFields: {
+                totalSubscriber: {
+                  $size: "$subscriber",
                 },
               },
             },
@@ -174,9 +190,11 @@ const getPlaylistById = asyncHandler(async (req, res) => {
           totalViews: {
             $sum: "$videos.views",
           },
+          playlistOwner: {
+            $arrayElemAt: ["$playlistOwner", 0],
+          },
         },
       },
-
       {
         $project: {
           name: 1,
@@ -191,14 +209,20 @@ const getPlaylistById = asyncHandler(async (req, res) => {
             thumbnail: 1,
             title: 1,
             description: 1,
+            duration: 1,
+            createdAt: 1,
+            views: 1,
             owner: {
               username: 1,
               fullName: 1,
               avatar: 1,
             },
-            duration: 1,
-            createdAt: 1,
-            views: 1,
+          },
+          playlistOwner: {
+            username: 1,
+            fullName: 1,
+            avatar: 1,
+            totalSubscriber: 1,
           },
         },
       },
