@@ -33,9 +33,89 @@ export const userLogin = async (data) => {
 
 export const userLogout = async () => {
   try {
-    const response = await axiosInstance.post("/user/logout");
+    const response = await axiosInstance.post("/users/logout");
     toast.success("Succesfully Logout");
     return response.data;
+  } catch (error) {
+    toast.error(error?.response.data.message);
+    throw error;
+  }
+};
+
+export const refreshToken = async () => {
+  try {
+    const response = await axiosInstance.post("/users/refresh-Token", data);
+    return response.data;
+  } catch (error) {
+    toast.error(error?.response.data.message);
+    throw error;
+  }
+};
+
+export const changePassword = async (data) => {
+  try {
+    const resposne = await axiosInstance.post("/users/change-Password", data);
+    toast.success(resposne.data?.message);
+    return resposne.data;
+  } catch (error) {
+    toast.error(error?.response.data.message);
+    throw error;
+  }
+};
+
+export const getCurrentUser = async () => {
+  try {
+    const response = await axiosInstance.get("/users/getCurrentUser");
+    return response.data.data;
+  } catch (error) {
+    toast.error(error?.response.data.message);
+    throw error;
+  }
+};
+
+export const updateAvatar = async () => {
+  try {
+    const formData = new FormData();
+    formData.append("avatar", data.avatar[0]);
+
+    const resposne = await axiosInstance.patch(
+      "/users/update-avatar",
+      formData
+    );
+
+    toast.success("Updated Your Avatar Please Refresh Once");
+    return resposne.data.data;
+  } catch (error) {
+    toast.error(error?.response.data.message);
+    throw error;
+  }
+};
+
+export const updateCoverImage = async () => {
+  try {
+    const formData = new FormData();
+    formData.append("coverImage", data.coverImage[0]);
+
+    const resposne = await axiosInstance.patch(
+      "/users/update-coverImage",
+      formData
+    );
+
+    toast.success(
+      "Updated Your Channel Banner || Cover Image Please Refresh Once"
+    );
+    return resposne.data.data;
+  } catch (error) {
+    toast.error(error?.response.data.message);
+    throw error;
+  }
+};
+
+export const updateUserDetails = async (data) => {
+  try {
+    const resposne = await axiosInstance.patch("/users/update-account", data);
+    toast.success("Updated Your Details Please Refresh Once");
+    return resposne.data.data;
   } catch (error) {
     toast.error(error?.response.data.message);
     throw error;

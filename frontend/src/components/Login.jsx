@@ -5,7 +5,7 @@ import { Logo } from "../assets/Logo";
 import { useForm } from "react-hook-form";
 import { Input, Button } from "./index.js";
 import { userLogin } from "../helper/authapicalls";
-import { login as authLogin } from "../store/Slice/authSlice";
+import { login as authLogin, login } from "../store/Slice/authSlice";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ const Login = () => {
       };
       const response = await userLogin(loginData);
       if (response) {
-        dispactch(authLogin(response));
+        dispactch(login(response));
       }
       navigate("/");
     } catch (error) {

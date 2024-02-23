@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { Logo } from "../assets/Logo";
+import { Logo } from "../assets/Logo.jsx";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { Button, Input } from "./index.js";
 import { userSingup } from "../helper/authapicalls.js";
 import { login } from "../store/Slice/authSlice.js";
 
-const Singup = () => {
+const Signup = () => {
   const navigate = useNavigate();
   const dispactch = useDispatch();
 
@@ -171,4 +171,4 @@ const Singup = () => {
   );
 };
 
-export default Singup;
+export default Signup;

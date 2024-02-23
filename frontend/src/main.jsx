@@ -5,9 +5,10 @@ import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
-import Singup from "./pages/Singup.jsx";
+import Signup from "./pages/Signup.jsx";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
+import { AuthLayout } from "./components/index.js";
 
 const router = createBrowserRouter([
   {
@@ -20,11 +21,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <Login />,
+        element: (
+          <AuthLayout authentication={false}>
+            <Login />
+          </AuthLayout>
+        ),
       },
       {
-        path: "/singup",
-        element: <Singup />,
+        path: "/signup",
+        element: (
+          <AuthLayout authentication={false}>
+            <Signup />
+          </AuthLayout>
+        ),
       },
     ],
   },
