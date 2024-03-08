@@ -16,7 +16,7 @@ export const userSingup = async (data) => {
     return response.data;
   } catch (error) {
     console.log(error);
-    toast.error(error?.response.data.message);
+    toast.error(error?.message);
     throw error;
   }
 };
@@ -26,7 +26,7 @@ export const userLogin = async (data) => {
     const resposne = await axiosInstance.post("/users/login", data);
     return resposne.data.data.user;
   } catch (error) {
-    toast.error(error?.response.data.message);
+    toast.error(error?.response?.data);
     throw error;
   }
 };

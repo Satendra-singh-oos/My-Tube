@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { Input, Button } from "./index.js";
 import { userLogin } from "../helper/authapicalls";
 import { login as authLogin, login } from "../store/Slice/authSlice";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,20 +19,17 @@ const Login = () => {
   } = useForm();
 
   const submit = async (data) => {
-    try {
-      const loginData = {
-        username: data.username,
-        email: data.email,
-        password: data.password,
-      };
-      const response = await userLogin(loginData);
-      if (response) {
-        dispactch(login(response));
-      }
-      navigate("/");
-    } catch (error) {
-      toast.error(error?.message);
+    const loginData = {
+      username: data.username,
+      email: data.email,
+      password: data.password,
+    };
+    const response = await userLogin(loginData);
+    if (response) {
+      dispactch(login(response));
+      toast.success("User Login Succesfully");
     }
+    navigate("/");
   };
   return (
     <>

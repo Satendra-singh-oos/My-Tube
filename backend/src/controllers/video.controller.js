@@ -196,7 +196,7 @@ const getVideoById = asyncHandler(async (req, res) => {
     const { videoId } = req.params;
 
     if (!isValidObjectId(videoId)) {
-      throw new ApiError(400, "Invalid videoId");
+      throw new ApiError(400, "Invalid videoId ObjecId");
     }
 
     const userId = req.user?._id;
@@ -309,6 +309,7 @@ const getVideoById = asyncHandler(async (req, res) => {
           isUserLiked: 1,
           totalComments: 1,
           channelInfo: 1,
+          createdAt: 1,
         },
       },
     ]);

@@ -19,13 +19,9 @@ const Signup = () => {
   } = useForm();
 
   const submit = async (data) => {
-    try {
-      const userData = await userSingup(data);
-      if (userData) dispactch(login(userData));
-      navigate("/login");
-    } catch (error) {
-      toast.error(error?.message);
-    }
+    const userData = await userSingup(data);
+    if (userData) dispactch(login(userData));
+    navigate("/login");
   };
 
   return (

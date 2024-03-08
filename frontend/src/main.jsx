@@ -3,12 +3,10 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Home from "./pages/Home.jsx";
-import Login from "./pages/Login.jsx";
-import Signup from "./pages/Signup.jsx";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
 import { AuthLayout } from "./components/index.js";
+import { Home, LikedPage, Login, Signup, VideoPlay } from "./pages/index.js";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +30,23 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication={false}>
             <Signup />
+          </AuthLayout>
+        ),
+      },
+
+      {
+        path: "/watch/:videoId",
+        element: (
+          <AuthLayout>
+            <VideoPlay />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/liked-videos",
+        element: (
+          <AuthLayout authentication>
+            <LikedPage />
           </AuthLayout>
         ),
       },

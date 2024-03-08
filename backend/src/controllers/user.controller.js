@@ -169,11 +169,7 @@ const loginUser = asyncHandler(async (req, res) => {
         )
       );
   } catch (error) {
-    throw new ApiError(
-      "500",
-      error?.message,
-      "something went wrong during login user"
-    );
+    throw new ApiError(404, error?.message);
   }
 });
 

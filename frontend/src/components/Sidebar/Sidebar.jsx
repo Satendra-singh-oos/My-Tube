@@ -9,95 +9,112 @@ import {
   UserRoundCheck,
 } from "lucide-react";
 import React from "react";
+import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
+  const username = useSelector((state) => state.auth?.userData?.username);
+  const sideItems = [
+    {
+      name: "Home",
+      icon: <HomeIcon />,
+      slug: "/",
+    },
+    {
+      name: "Liked Videos",
+      icon: <HomeIcon />,
+      slug: "/liked-videos",
+    },
+    {
+      name: "History",
+      icon: <History />,
+      slug: "/history",
+    },
+    {
+      name: " My Content",
+      icon: <CameraIcon />,
+      slug: "/my-content",
+    },
+    {
+      name: "Collections",
+      icon: <FolderClosed />,
+      slug: "/collections",
+    },
+    {
+      name: "Subscriptions",
+      icon: <UserRoundCheck />,
+      slug: "/subscriptions",
+    },
+  ];
+
+  const bottomSideItems = [
+    {
+      name: "Home",
+      icon: <HomeIcon />,
+      slug: "/",
+    },
+    {
+      name: "History",
+      icon: <History />,
+      slug: "/history",
+    },
+    {
+      name: "Collections",
+      icon: <FolderClosed />,
+      slug: "/collections",
+    },
+    {
+      name: "Subscriptions",
+      icon: <UserRoundCheck />,
+      slug: "/subscriptions",
+    },
+  ];
+
   return (
     <>
-      <div className="flex min-h-[calc(100vh-66px)] sm:min-h-[calc(100vh-82px)]">
-        <aside className="group fixed inset-x-0 bottom-0 z-40 w-full shrink-0 border-t border-white bg-[#121212] px-2 py-2 sm:absolute sm:inset-y-0 sm:max-w-[70px] sm:border-r sm:border-t-0 sm:py-6 sm:hover:max-w-[250px] lg:sticky lg:max-w-[250px]">
-          <ul className="flex justify-around gap-y-2 sm:sticky sm:top-[106px] sm:min-h-[calc(100vh-130px)] sm:flex-col">
-            <li className="">
-              <button className="flex flex-col items-center justify-center border-white py-1 focus:text-[#ae7aff] sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-[#ae7aff] sm:hover:text-black sm:focus:border-[#ae7aff] sm:focus:bg-[#ae7aff] sm:focus:text-black sm:group-hover:justify-start sm:group-hover:px-4 lg:justify-start lg:px-4 text-white">
-                <span className="inline-block w-5 shrink-0 sm:group-hover:mr-4 lg:mr-4">
-                  <HomeIcon />
-                </span>
-                <span className="block sm:hidden sm:group-hover:inline lg:inline">
-                  Home
-                </span>
-              </button>
-            </li>
-            <li className="hidden sm:block">
-              <button className="flex flex-col items-center justify-center border-white py-1 focus:text-[#ae7aff] sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-[#ae7aff] sm:hover:text-black sm:focus:border-[#ae7aff] sm:focus:bg-[#ae7aff] sm:focus:text-black sm:group-hover:justify-start sm:group-hover:px-4 lg:justify-start lg:px-4 text-white">
-                <span className="inline-block w-5 shrink-0 sm:group-hover:mr-4 lg:mr-4">
-                  <ThumbsUpIcon />
-                </span>
-                <span className="block sm:hidden sm:group-hover:inline lg:inline">
-                  Liked Videos
-                </span>
-              </button>
-            </li>
-            <li className="">
-              <button className="flex flex-col items-center text-white justify-center border-white py-1 focus:text-[#ae7aff] sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-[#ae7aff] sm:hover:text-black sm:focus:border-[#ae7aff] sm:focus:bg-[#ae7aff] sm:focus:text-black sm:group-hover:justify-start sm:group-hover:px-4 lg:justify-start lg:px-4">
-                <span className="inline-block w-5 shrink-0 sm:group-hover:mr-4 lg:mr-4">
-                  <History />
-                </span>
-                <span className="block sm:hidden sm:group-hover:inline lg:inline">
-                  History
-                </span>
-              </button>
-            </li>
-            <li className="hidden sm:block">
-              <button className="flex flex-col items-center justify-center text-white border-white py-1 focus:text-[#ae7aff] sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-[#ae7aff] sm:hover:text-black sm:focus:border-[#ae7aff] sm:focus:bg-[#ae7aff] sm:focus:text-black sm:group-hover:justify-start sm:group-hover:px-4 lg:justify-start lg:px-4">
-                <span className="inline-block w-5 shrink-0 sm:group-hover:mr-4 lg:mr-4">
-                  <CameraIcon />
-                </span>
-                <span className="block sm:hidden sm:group-hover:inline lg:inline">
-                  My Content
-                </span>
-              </button>
-            </li>
-            <li className="">
-              <button className="flex flex-col items-center justify-center text-white border-white py-1 focus:text-[#ae7aff] sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-[#ae7aff] sm:hover:text-black sm:focus:border-[#ae7aff] sm:focus:bg-[#ae7aff] sm:focus:text-black sm:group-hover:justify-start sm:group-hover:px-4 lg:justify-start lg:px-4">
-                <span className="inline-block w-5 shrink-0 sm:group-hover:mr-4 lg:mr-4">
-                  <FolderClosed />
-                </span>
-                <span className="block sm:hidden sm:group-hover:inline lg:inline">
-                  Collections
-                </span>
-              </button>
-            </li>
-            <li className="">
-              <button className="flex flex-col items-center justify-center text-white border-white py-1 focus:text-[#ae7aff] sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-[#ae7aff] sm:hover:text-black sm:focus:border-[#ae7aff] sm:focus:bg-[#ae7aff] sm:focus:text-black sm:group-hover:justify-start sm:group-hover:px-4 lg:justify-start lg:px-4">
-                <span className="inline-block w-5 shrink-0 sm:group-hover:mr-4 lg:mr-4">
-                  <UserRoundCheck />
-                </span>
-                <span className="block sm:hidden sm:group-hover:inline lg:inline">
-                  Subscribers
-                </span>
-              </button>
-            </li>
-            <li className="hidden sm:block mt-auto">
-              <button className="flex flex-col items-center justify-center text-white border-white py-1 focus:text-[#ae7aff] sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-[#ae7aff] sm:hover:text-black sm:focus:border-[#ae7aff] sm:focus:bg-[#ae7aff] sm:focus:text-black sm:group-hover:justify-start sm:group-hover:px-4 lg:justify-start lg:px-4">
-                <span className="inline-block w-5 shrink-0 sm:group-hover:mr-4 lg:mr-4">
-                  <HelpCircle />
-                </span>
-                <span className="block sm:hidden sm:group-hover:inline lg:inline">
-                  Support
-                </span>
-              </button>
-            </li>
-            <li className="hidden sm:block">
-              <button className="flex flex-col items-center justify-center text-white border-white py-1 focus:text-[#ae7aff] sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-[#ae7aff] sm:hover:text-black sm:focus:border-[#ae7aff] sm:focus:bg-[#ae7aff] sm:focus:text-black sm:group-hover:justify-start sm:group-hover:px-4 lg:justify-start lg:px-4">
-                <span className="inline-block w-5 shrink-0 sm:group-hover:mr-4 lg:mr-4">
-                  <Settings />
-                </span>
-                <span className="block sm:hidden sm:group-hover:inline lg:inline">
-                  Settings
-                </span>
-              </button>
-            </li>
-          </ul>
-        </aside>
+      <div className="sm:block hidden">
+        <div className="text-white lg:w-56 md:w-44 w-16 sm:p-3 p-2 border-white border-r h-screen flex flex-col justify-between">
+          <div className="flex flex-col gap-4 mt-5">
+            {sideItems.map((item) => (
+              <NavLink
+                to={item.slug}
+                key={item.slug}
+                className="hover:bg-[#ae7aff]"
+              >
+                <div className="flex items-center gap-2 justify-center sm:justify-start hover:bg-purple-500 cursor-pointer py-1 px-2 border  border-white">
+                  {item.icon}
+                  <span className="text-base hidden md:block">{item.name}</span>
+                </div>
+              </NavLink>
+            ))}
+          </div>
+          <div className="space-y-4 mb-10">
+            <div className="flex items-center gap-2 justify-center sm:justify-start hover:bg-purple-500 cursor-pointer py-1 px-2 border  border-white">
+              <HelpCircle size={25} />
+              <span className="text-base hidden md:block">Support</span>
+            </div>
+            <div className="flex items-center gap-2 justify-center sm:justify-start hover:bg-purple-500 cursor-pointer py-1 px-2 border  border-white">
+              <Settings size={25} />
+              <span className="text-base hidden md:block">Settings</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* for mobile sidebar is bottom bar*/}
+      <div className="border-t-2 text-white h-16 sm:hidden z-20 p-1 w-full flex justify-around fixed bottom-0 bg-[#0E0F0F]">
+        {bottomSideItems.map((item) => (
+          <NavLink
+            to={item.slug}
+            key={item.slug}
+            className="hover:bg-[#ae7aff]"
+          >
+            <div className="flex flex-col items-center gap-1 cursor-pointer p-1">
+              {item.icon}
+              <span className="text-sm">{item.name}</span>
+            </div>
+          </NavLink>
+        ))}
       </div>
     </>
   );

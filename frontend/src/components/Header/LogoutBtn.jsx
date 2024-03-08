@@ -8,14 +8,9 @@ const LogoutBtn = () => {
   const dispatch = useDispatch();
 
   const logoutHandler = async () => {
-    try {
-      const response = await userLogout();
-      if (response) {
-        dispatch(logout());
-        toast.success("User Logout Succesfuly");
-      }
-    } catch (error) {
-      toast.error(error?.response.data.message);
+    const response = await userLogout();
+    if (response) {
+      dispatch(logout());
     }
   };
   return (
