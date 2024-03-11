@@ -29,7 +29,13 @@ const toggleVideoLike = asyncHandler(async (req, res) => {
       await Like.findByIdAndDelete(isVideoAlreadyLiked?._id);
       return res
         .status(200)
-        .json(new ApiResponse(200, {}, "Unliked The Video Successfully"));
+        .json(
+          new ApiResponse(
+            200,
+            { isLiked: false },
+            "Unliked The Video Successfully"
+          )
+        );
     }
 
     await Like.create({
@@ -39,7 +45,9 @@ const toggleVideoLike = asyncHandler(async (req, res) => {
 
     return res
       .status(200)
-      .json(new ApiResponse(200, {}, "Liked The Video Successfully"));
+      .json(
+        new ApiResponse(200, { isLiked: true }, "Liked The Video Successfully")
+      );
   } catch (error) {
     throw new ApiError(500, error?.message);
   }
@@ -63,7 +71,13 @@ const toggleCommentLike = asyncHandler(async (req, res) => {
       await Like.findByIdAndDelete(isCommentAlreadyLiked?._id);
       return res
         .status(200)
-        .json(new ApiResponse(200, {}, "Unliked The Comment Successfully"));
+        .json(
+          new ApiResponse(
+            200,
+            { isLiked: false },
+            "Unliked The Comment Successfully"
+          )
+        );
     }
 
     await Like.create({
@@ -73,7 +87,13 @@ const toggleCommentLike = asyncHandler(async (req, res) => {
 
     return res
       .status(200)
-      .json(new ApiResponse(200, {}, "Liked The Comment Successfully"));
+      .json(
+        new ApiResponse(
+          200,
+          { isLiked: true },
+          "Liked The Comment Successfully"
+        )
+      );
   } catch (error) {
     throw new ApiError(500, error.message);
   }
@@ -98,7 +118,13 @@ const toggleTweetLike = asyncHandler(async (req, res) => {
       await Like.findByIdAndDelete(isTweetAlreadyLiked?._id);
       return res
         .status(200)
-        .json(new ApiResponse(200, {}, "Unliked The Tweet Successfully"));
+        .json(
+          new ApiResponse(
+            200,
+            { isLiked: false },
+            "Unliked The Tweet Successfully"
+          )
+        );
     }
 
     await Like.create({
@@ -108,7 +134,9 @@ const toggleTweetLike = asyncHandler(async (req, res) => {
 
     return res
       .status(200)
-      .json(new ApiResponse(200, {}, "Liked The Tweet Successfully"));
+      .json(
+        new ApiResponse(200, { isLiked: true }, "Liked The Tweet Successfully")
+      );
   } catch (error) {
     throw new ApiError(500, error.message);
   }

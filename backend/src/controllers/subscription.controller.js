@@ -32,7 +32,13 @@ const toggleSubscription = asyncHandler(async (req, res) => {
 
       return res
         .status(200)
-        .json(new ApiResponse(200, {}, "Unsubscribed The Channel"));
+        .json(
+          new ApiResponse(
+            200,
+            { subscribed: false },
+            "Unsubscribed The Channel"
+          )
+        );
     }
 
     await Subscription.create({
@@ -42,7 +48,13 @@ const toggleSubscription = asyncHandler(async (req, res) => {
 
     return res
       .status(200)
-      .json(new ApiResponse(200, {}, "Subscribed The Channel Succesfully"));
+      .json(
+        new ApiResponse(
+          200,
+          { subscribed: true },
+          "Subscribed The Channel Succesfully"
+        )
+      );
   } catch (error) {
     throw new ApiError(500, error?.message);
   }

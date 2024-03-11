@@ -24,7 +24,6 @@ const VideoPlay = () => {
   }, [videoId]);
 
   const currentVideo = useSelector((state) => state.video?.video);
-  console.log(currentVideo);
 
   return (
     <>

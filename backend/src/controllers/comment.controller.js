@@ -5,6 +5,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { Video } from "../models/video.model.js";
 import { commentSchemaValidation } from "../validations/comment.validation.js";
+import { Like } from "../models/like.model.js";
 
 const getVideoComments = asyncHandler(async (req, res) => {
   //TODO: get all comments for a video
@@ -251,9 +252,20 @@ const deleteComment = asyncHandler(async (req, res) => {
 
     await Comment.findByIdAndDelete(commentId);
 
+    // also delete all the likes on the comment this will setize the db
+    await Like.deleteMany({
+      comment: commentId,
+    });
+
     return res
       .status(200)
-      .json(new ApiResponse(200, {}, "Successfully Deleted the comment"));
+      .json(
+        new ApiResponse(
+          200,
+          { commentId, isDeleted: true },
+          "Successfully Deleted the comment"
+        )
+      );
   } catch (error) {
     throw new ApiError(500, error?.message);
   }

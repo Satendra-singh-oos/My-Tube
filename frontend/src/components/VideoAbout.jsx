@@ -4,6 +4,10 @@ import { useSelector } from "react-redux";
 
 const VideoAbout = () => {
   const currentVideo = useSelector((state) => state.video.video);
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+  };
   return (
     <>
       {currentVideo && currentVideo.length > 0 ? (
@@ -14,7 +18,7 @@ const VideoAbout = () => {
         >
           <div className="flex flex-wrap gap-y-2">
             <div className="w-full md:w-1/2 lg:w-full xl:w-1/2">
-              <h1 className="text-lg font-bold">Advanced React Patterns</h1>
+              <h1 className="text-lg font-bold">{currentVideo[0].title}</h1>
               <p className="flex text-sm text-gray-200">
                 {currentVideo[0].views} Views {currentVideo[0].createdAt} hours
                 ago
@@ -268,7 +272,10 @@ const VideoAbout = () => {
             </div>
             <div className="block">
               {/* TODO:SUBSCRIBED API AND FUNCTINALITY LEFT */}
-              <button className="group/btn mr-1 flex w-full items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto">
+              <button
+                className="group/btn mr-1 flex w-full items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto"
+                onClick={(e) => handleSubscribe(e)}
+              >
                 <span className="inline-block w-5">
                   <UserPlus height={20} width={20} />
                 </span>

@@ -207,9 +207,15 @@ const deleteTweet = asyncHandler(async (req, res) => {
 
     await Tweet.findByIdAndDelete(tweetId);
 
-    return res
-      .status(200)
-      .json(new ApiResponse(200, {}, "Succesfuly Delted the tweet"));
+    return res.status(200).json(
+      new ApiResponse(
+        200,
+        {
+          tweetId,
+        },
+        "Succesfuly Delted the tweet"
+      )
+    );
   } catch (error) {
     throw new ApiError(500, error.message);
   }
