@@ -6,7 +6,14 @@ export const toggleSubscription = async ({ channelId }) => {
     const resposne = await axiosInstance.post(
       `/subscriptions/channel/${channelId}`
     );
-    return resposne.data.data.subscribed;
+
+    if (resposne.data.data.subscribed === true) {
+      toast.success("Subscribed The Channel");
+      return resposne.data.data.subscribed;
+    } else {
+      toast.success("UnSubscribed The Channel 😖");
+      return resposne.data.data.subscribed;
+    }
   } catch (error) {
     toast.error("Something Went Wrong");
     console.log(error?.response?.data);

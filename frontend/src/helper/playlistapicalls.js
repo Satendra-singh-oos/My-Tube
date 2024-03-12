@@ -32,6 +32,7 @@ export const removeVideoFromPlaylist = async ({ videoId, playlistId }) => {
     const response = await axiosInstance.patch(
       `/playlist/remove/${videoId}/${playlistId}`
     );
+    toast.success("Playlist Added Succesfully");
     return response.data.data;
   } catch (error) {
     toast.error("Something Went Wrong");
@@ -58,6 +59,17 @@ export const getPlaylistById = async ({ playlistId }) => {
     return response.data.data;
   } catch (error) {
     toast.error("Something Went Wrong");
+    console.log(error?.response?.data);
+  }
+};
+
+export const getUserPlaylists = async ({ userId }) => {
+  try {
+    const response = await axiosInstance.get(`/playlist/user/${userId}`);
+
+    return response.data.data;
+  } catch (error) {
+    toast.error("No Playlist Found Create New One");
     console.log(error?.response?.data);
   }
 };

@@ -4,7 +4,13 @@ import axiosInstance from "./axios/axiosInstance";
 export const toggleVideoLike = async ({ videoId }) => {
   try {
     const response = await axiosInstance.post(`/likes/toggle/v/${videoId}`);
-    return response.data.data.isLiked;
+    if (response.data.data.isLiked === true) {
+      toast.success("Liked The Video 😀");
+      return response.data.data.isLiked;
+    } else {
+      toast.success("UnLiked The Video 😞");
+      return response.data.data.isLiked;
+    }
   } catch (error) {
     toast.error("Something Went Wrong");
     console.log(error?.response?.data);
@@ -14,7 +20,13 @@ export const toggleVideoLike = async ({ videoId }) => {
 export const toggleCommentLike = async ({ commentId }) => {
   try {
     const response = await axiosInstance.post(`/likes/toggle/c/${commentId}`);
-    return response.data.data.isLiked;
+    if (response.data.data.isLiked == true) {
+      toast.success("Liked The Comment 😀");
+      return response.data.data.isLiked;
+    } else {
+      toast.success("UnLiked The Comment");
+      return response.data.data.isLiked;
+    }
   } catch (error) {
     toast.error("Something Went Wrong");
 
@@ -25,7 +37,13 @@ export const toggleCommentLike = async ({ commentId }) => {
 export const toggleTweetLike = async ({ tweetId }) => {
   try {
     const response = await axiosInstance.post(`/likes/toggle/t/${tweetId}`);
-    return response.data.data.isLiked;
+    if (response.data.data.isLiked == true) {
+      toast.success("Liked The Tweet 😀");
+      return response.data.data.isLiked;
+    } else {
+      toast.success("UnLiked The Tweet");
+      return response.data.data.isLiked;
+    }
   } catch (error) {
     toast.error("Something Went Wrong");
     console.log(error?.response?.data);

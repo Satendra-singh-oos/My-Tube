@@ -4,7 +4,7 @@ import { BASE_URL } from "../../constants";
 import { comment } from "postcss";
 
 export const getVideoComments = async ({ videoId, page, limit }) => {
-  const url = new URL(`${BASE_URL}/comment/${videoId}`);
+  const url = new URL(`${BASE_URL}/comments/${videoId}`);
   if (page) {
     url.searchParams.set("page", page);
   }
