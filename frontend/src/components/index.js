@@ -11,7 +11,7 @@ import VideoCard from "./VideoCard.jsx";
 import NoVideoFound from "./NoVideoFound.jsx";
 import Video from "./Video.jsx";
 import VideoAbout from "./VideoAbout.jsx";
-import Comments from "./Comments.jsx";
+import CommentsList from "./CommentsList.jsx";
 import SideVideos from "./SideVideos.jsx";
 import Like from "./Like.jsx";
 import AddToPlaylist from "./AddToPlaylist.jsx";
@@ -30,7 +30,7 @@ export {
   NoVideoFound,
   Video,
   VideoAbout,
-  Comments,
+  CommentsList,
   SideVideos,
   Like,
   AddToPlaylist,

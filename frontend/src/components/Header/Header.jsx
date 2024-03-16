@@ -40,7 +40,10 @@ const Header = () => {
       <div className="h-screenbg-[#121212] text-white">
         <header className="sticky inset-x-0 top-0 z-50 w-full border-b border-white bg-[#121212] px-4">
           <nav className="mx-auto flex max-w-7xl items-center py-2">
-            <div className="mr-4 w-12 shrink-0 sm:w-16">
+            <div
+              className="mr-4 w-12 shrink-0 sm:w-16"
+              onClick={() => navigate("/")}
+            >
               <Logo />
             </div>
             <SearchBar />

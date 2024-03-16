@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Comments, SideVideos, Video, VideoAbout } from "../components";
+import { CommentsList, SideVideos, Video, VideoAbout } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getVideoById } from "../helper/videoapicalls";
@@ -32,7 +32,7 @@ const VideoPlay = () => {
 
   const currentVideo = useSelector((state) => state.video?.video);
 
-  const comments = useSelector((state) => state.commnet?.comments);
+  const comments = useSelector((state) => state.comment?.comments);
   const totalComments = useSelector((state) => state.comment?.totalComments);
   const hasNextPage = useSelector((state) => state.comment?.hasNextPage);
 
@@ -54,25 +54,28 @@ const VideoPlay = () => {
                   </div>
                   {/* Video About Section Title ,Discription ,Total Views, Video Releadsed Data/hour , total Like , Save To Playlist Subscribed/subscribed */}
                   <VideoAbout
-                    key={currentVideo[0]._id}
-                    avatar={currentVideo[0].channelInfo.avatar}
-                    channelName={currentVideo[0].channelInfo.username}
-                    createdAt={currentVideo[0].createdAt}
-                    description={currentVideo[0].description}
-                    isSubscribed={currentVideo[0].isUserSubscribed}
-                    isLiked={currentVideo[0].isUserLiked}
-                    likeCount={currentVideo[0].totalLikes}
-                    subscribersCount={currentVideo[0].subscribersCount}
-                    title={currentVideo[0].title}
-                    views={currentVideo[0].views}
-                    videoId={currentVideo[0]._id}
-                    channelId={currentVideo[0].channelInfo._id}
+                    key={currentVideo[0]?._id}
+                    avatar={currentVideo[0]?.channelInfo.avatar}
+                    channelName={currentVideo[0]?.channelInfo.username}
+                    createdAt={currentVideo[0]?.createdAt}
+                    description={currentVideo[0]?.description}
+                    isSubscribed={currentVideo[0]?.isUserSubscribed}
+                    isLiked={currentVideo[0]?.isUserLiked}
+                    likeCount={currentVideo[0]?.totalLikes}
+                    subscribersCount={currentVideo[0]?.subscribersCount}
+                    title={currentVideo[0]?.title}
+                    views={currentVideo[0]?.views}
+                    videoId={currentVideo[0]?._id}
+                    channelId={currentVideo[0]?.channelInfo?._id}
                   />
                   {/* Comment Bellow  */}
                   <button className="peer w-full rounded-lg border p-4  text-left duration-200 hover:bg-white/5 focus:bg-white/5 sm:hidden">
-                    <h6 className="font-semibold">536 Comments...</h6>
+                    <h6 className="font-semibold">
+                      {totalComments} Comments...
+                    </h6>
                   </button>
-                  <Comments totalComments={totalComments} />
+
+                  <CommentsList />
                 </div>
                 {/* Side Videos */}
                 <SideVideos />

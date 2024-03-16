@@ -4,7 +4,7 @@ const initialState = {
   loading: false,
   comments: [],
   totalComments: null,
-  hasnextPage: false,
+  hasNextPage: false,
 };
 
 const commentSlice = createSlice({
@@ -12,10 +12,9 @@ const commentSlice = createSlice({
   initialState,
   reducers: {
     getAllVideoCommentsSucesss: (state, action) => {
-      state.loading = false;
       state.comments = [...action.payload.docs];
       state.totalComments = action.payload.totalDocs;
-      state.hasnextPage = action.payload.hasnextPage;
+      state.hasNextPage = action.payload.hasNextPage;
     },
 
     createACommnet: (state, action) => {

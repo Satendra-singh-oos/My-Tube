@@ -10,7 +10,7 @@ const store = configureStore({
   reducer: {
     auth: authSlice,
     video: videoSlice,
-    commnet: commentSlice,
+    comment: commentSlice,
     subscribe: subscribeSlice,
     like: likeSlice,
     playlist: playlistSlice,
