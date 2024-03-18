@@ -52,7 +52,7 @@ export const toggleTweetLike = async ({ tweetId }) => {
 
 export const getLikedVideos = async () => {
   try {
-    const response = await axiosInstance.gey("/likes/videos");
+    const response = await axiosInstance.get("/likes/videos");
     return response.data.data;
   } catch (error) {
     toast.error("Something Went Wrong");

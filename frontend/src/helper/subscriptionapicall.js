@@ -26,6 +26,7 @@ export const getChannelSubscribers = async ({ channelId }) => {
       `/subscriptions/channel/${channelId}`
     );
     // data is in form of array
+
     return resposne.data.data;
   } catch (error) {
     toast.error("Something Went Wrong");
@@ -39,6 +40,7 @@ export const getUserChannelSubscription = async ({ subscriberId }) => {
       `/subscriptions/user/${subscriberId}`
     );
     // data is in form of array
+    toast.success("Successfully Fetched The Subscrbed Channel");
     return response.data.data;
   } catch (error) {
     toast.error("Something Went Wrong");

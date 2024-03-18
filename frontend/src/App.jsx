@@ -15,7 +15,7 @@ const App = () => {
     const response = getCurrentUser()
       .then((response) => {
         if (response) {
-          dispactch(login({ response }));
+          dispactch(login(response));
         } else {
           dispactch(logout());
         }

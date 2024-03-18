@@ -12,7 +12,7 @@ import { getAllPlaylistSucess } from "../store/Slice/playlistSlice";
 const VideoPlay = () => {
   const dispactch = useDispatch();
   const { videoId } = useParams();
-  const userId = useSelector((state) => state.auth.userData?.response?._id);
+  const userId = useSelector((state) => state.auth.userData?._id);
 
   useEffect(() => {
     if (videoId) {

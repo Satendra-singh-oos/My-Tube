@@ -15,6 +15,7 @@ const SideVideos = () => {
           <div
             className="w-full gap-x-2 border pr-2 md:flex"
             onClick={() => navigate(`/watch/${video?._id}`)}
+            key={video._id}
           >
             <div className="relative mb-2 w-full md:mb-0 md:w-5/12">
               <div className="w-full pt-[56%]">

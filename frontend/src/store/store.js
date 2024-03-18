@@ -5,6 +5,7 @@ import commentSlice from "./Slice/comment.slice";
 import subscribeSlice from "./Slice/subscribeSlice";
 import likeSlice from "./Slice/likeSlice";
 import playlistSlice from "./Slice/playlistSlice";
+import userSlice from "./Slice/userSlice";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     subscribe: subscribeSlice,
     like: likeSlice,
     playlist: playlistSlice,
+    user: userSlice,
   },
 });
 

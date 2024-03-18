@@ -556,7 +556,7 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
       Step 7: Validate if the channel exists
      Step 8: Send the response with the fetched user channel data
     */
-    const { username } = req.parmas;
+    const { username } = req.params;
 
     if (!username.trim()) {
       throw new ApiError(400, "username is missing");

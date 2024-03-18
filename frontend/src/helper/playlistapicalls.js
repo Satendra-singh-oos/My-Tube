@@ -66,6 +66,7 @@ export const getPlaylistById = async ({ playlistId }) => {
 export const getUserPlaylists = async ({ userId }) => {
   try {
     const response = await axiosInstance.get(`/playlist/user/${userId}`);
+    toast.success("Succesfully Fetched The All Playlsit");
 
     return response.data.data;
   } catch (error) {

@@ -15,6 +15,9 @@ import CommentsList from "./CommentsList.jsx";
 import SideVideos from "./SideVideos.jsx";
 import Like from "./Like.jsx";
 import AddToPlaylist from "./AddToPlaylist.jsx";
+import VideoListView from "./VideoListView.jsx";
+import SubscriberList from "./SubscriberList.jsx";
+import PlayListCard from "./PlayListCard.jsx";
 
 export {
   Signup,
@@ -34,4 +37,7 @@ export {
   SideVideos,
   Like,
   AddToPlaylist,
+  VideoListView,
+  SubscriberList,
+  PlayListCard,
 };

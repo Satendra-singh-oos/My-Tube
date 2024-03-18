@@ -6,7 +6,18 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
 import { AuthLayout } from "./components/index.js";
-import { Home, LikedPage, Login, Signup, VideoPlay } from "./pages/index.js";
+import {
+  Collections,
+  Home,
+  LikedPage,
+  Login,
+  MyContent,
+  MySubscriptions,
+  Signup,
+  SinglePlaylistView,
+  VideoPlay,
+  WatchHistory,
+} from "./pages/index.js";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +58,46 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             <LikedPage />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/history",
+        element: (
+          <AuthLayout authentication>
+            <WatchHistory />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/my-content",
+        element: (
+          <AuthLayout authentication>
+            <MyContent />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/collections",
+        element: (
+          <AuthLayout authentication>
+            <Collections />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/subscriptions",
+        element: (
+          <AuthLayout authentication>
+            <MySubscriptions />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/playlist/:playlistId",
+        element: (
+          <AuthLayout authentication>
+            <SinglePlaylistView />
           </AuthLayout>
         ),
       },

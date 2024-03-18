@@ -14,7 +14,7 @@ const AddToPlaylist = ({ videoId }) => {
   const [name, setName] = useState("");
   const [allPlaylist, setAllPlaylist] = useState(null);
 
-  const userId = useSelector((state) => state.auth.userData?.response?._id);
+  const userId = useSelector((state) => state.auth.userData?._id);
 
   const handlePlaylistInput = (e) => {
     e.preventDefault();

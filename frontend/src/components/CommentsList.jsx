@@ -21,7 +21,7 @@ const CommentsList = () => {
         {comments && comments.length > 0 ? (
           comments?.map((comment) => (
             <>
-              <div className="flex gap-x-4">
+              <div className="flex gap-x-4" key={comment._id}>
                 <div className="mt-2 h-11 w-11 shrink-0">
                   <img
                     src={comment?.owner?.avatar}

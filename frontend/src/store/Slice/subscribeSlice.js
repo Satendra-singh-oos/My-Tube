@@ -16,21 +16,21 @@ const subscribeSlice = createSlice({
       state.subscribed = action.payload;
     },
 
-    getAllUserChannelSubscribers: (state, action) => {
+    getAllUserChannelSubscribersSuccess: (state, action) => {
       state.loading = false;
       state.channelSubscribers = action.payload;
     },
 
-    getAllSubscribedChannelsOfUser: (state, action) => {
+    getAllSubscribedChannelsOfUserSuccess: (state, action) => {
       state.mySubscriptions = action.payload;
     },
   },
 });
 
 export const {
-  getAllSubscribedChannelsOfUser,
+  getAllSubscribedChannelsOfUserSuccess,
   toggleSubscriptionSuccess,
-  getAllUserChannelSubscribers,
+  getAllUserChannelSubscribersSuccess,
 } = subscribeSlice.actions;
 
 export default subscribeSlice.reducer;
