@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { calculateTimeAgo, formatDuration } from "../../constants";
 
 //TODO:ONCLICK CHANNEL Avatar SHOULD NAVIGATE TO THE CHANNEL
 const SideVideos = () => {
@@ -27,7 +28,7 @@ const SideVideos = () => {
                   />
                 </div>
                 <span className="absolute bottom-1 right-1 inline-block rounded bg-black px-1.5 text-sm">
-                  {video.duration}
+                  {formatDuration(video.duration)}
                 </span>
               </div>
             </div>
@@ -45,7 +46,7 @@ const SideVideos = () => {
                   {video.channelInfo?.username}
                 </p>
                 <p className="flex text-sm text-gray-200">
-                  {video.views} Views · {video.createdAt} minutes ago
+                  {video.views} Views · {calculateTimeAgo(video.createdAt)}
                 </p>
               </div>
             </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { calculateTimeAgo } from "../../constants";
 
 const VideoListView = ({
   thumbnail,
@@ -44,7 +45,7 @@ const VideoListView = ({
           <div className="w-full">
             <h6 className="mb-1 font-semibold md:max-w-[75%]">{title}</h6>
             <p className="flex text-sm text-gray-200 sm:mt-3">
-              {views} Views · {createdAt} minutes ago
+              {views} Views · {calculateTimeAgo(createdAt)}
             </p>
             <div className="flex items-center gap-x-4">
               <div className="mt-2 hidden h-10 w-10 shrink-0 md:block">

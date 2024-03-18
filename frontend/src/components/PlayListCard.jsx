@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { calculateTimeAgo } from "../../constants";
 
 const PlayListCard = ({
   thumbnail,
@@ -25,7 +26,7 @@ const PlayListCard = ({
                 </p>
                 <p className="text-sm text-gray-200">
                   {totalViews} Views · 
-                  {updatedAt} hours ago
+                  {calculateTimeAgo(updatedAt)}
                 </p>
               </div>
             </div>

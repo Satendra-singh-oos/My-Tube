@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { calculateTimeAgo, formatDuration } from "../../constants";
 
 const VideoCard = ({
   thumbnail,
@@ -25,7 +26,7 @@ const VideoCard = ({
             />
           </div>
           <span className="absolute bottom-1 right-1 inline-block rounded bg-black px-1.5 text-sm">
-            {duration}
+            {formatDuration(duration)}
           </span>
         </div>
         <div className="flex gap-x-2">
@@ -39,7 +40,7 @@ const VideoCard = ({
           <div className="w-full">
             <h6 className="mb-1 font-semibold">{title}</h6>
             <p className="flex text-sm text-gray-200">
-              {views} Views · {createdAt} minutes ago
+              {views} Views · {calculateTimeAgo(createdAt)}
             </p>
             <p className="text-sm text-gray-200">{channelName}</p>
           </div>

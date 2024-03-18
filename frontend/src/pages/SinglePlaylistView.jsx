@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getPlaylistById } from "../helper/playlistapicalls";
 import { getPlaylistSuccess } from "../store/Slice/playlistSlice";
 import { NoVideoFound } from "../components";
+import { calculateTimeAgo, formatDuration } from "../../constants";
 
 const SinglePlaylistView = () => {
   const dispatch = useDispatch();
@@ -59,7 +60,8 @@ const SinglePlaylistView = () => {
                             </span>
                           </p>
                           <p class="text-sm text-gray-200">
-                            {playlistData[0].totalViews} Views · 2 hours ago
+                            {playlistData[0].totalViews} Views · 
+                            {calculateTimeAgo(playlistData[0].updatedAt)}
                           </p>
                         </div>
                       </div>
@@ -106,7 +108,7 @@ const SinglePlaylistView = () => {
                             />
                           </div>
                           <span class="absolute bottom-1 right-1 inline-block rounded bg-black px-1.5 text-sm">
-                            {video.duration}
+                            {formatDuration(video.duration)}
                           </span>
                         </div>
                       </div>
@@ -126,7 +128,8 @@ const SinglePlaylistView = () => {
                             {video.title}
                           </h6>
                           <p class="flex text-sm text-gray-200 sm:mt-3">
-                            {video.views} Views · {video.createdAt} minutes ago
+                            {video.views} Views ·{" "}
+                            {calculateTimeAgo(video.createdAt)} minutes ago
                           </p>
                           <div class="flex items-center gap-x-4">
                             <div class="mt-2 hidden h-10 w-10 shrink-0 sm:block">

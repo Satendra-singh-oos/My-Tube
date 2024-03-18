@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { calculateTimeAgo } from "../../constants";
 
 const CommentsList = () => {
   const comments = useSelector((state) => state.comment?.comments);
@@ -32,7 +33,7 @@ const CommentsList = () => {
                 <div className="block">
                   <p className="flex items-center text-gray-200">
                     <span className="text-sm">
-                      {comment?.createdAt} hour ago
+                      {calculateTimeAgo(comment?.createdAt)}
                     </span>
                   </p>
                   <p className="text-sm text-gray-200">

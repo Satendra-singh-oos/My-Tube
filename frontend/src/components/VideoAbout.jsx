@@ -5,6 +5,7 @@ import Like from "./Like";
 import { toggleSubscription } from "../helper/subscriptionapicall";
 import { toggleSubscriptionSuccess } from "../store/Slice/subscribeSlice";
 import AddToPlaylist from "./AddToPlaylist";
+import { calculateTimeAgo } from "../../constants";
 
 const VideoAbout = ({
   avatar,
@@ -54,7 +55,7 @@ const VideoAbout = ({
             <div className="w-full md:w-1/2 lg:w-full xl:w-1/2">
               <h1 className="text-lg font-bold">{title}</h1>
               <p className="flex text-sm text-gray-200">
-                {views} Views {createdAt} hours ago
+                {views} Views {calculateTimeAgo(createdAt)}
               </p>
             </div>
             <div className="w-full md:w-1/2 lg:w-full xl:w-1/2">
