@@ -56,6 +56,7 @@ export const updatedPlaylist = async ({ playlistId, description, name }) => {
 export const getPlaylistById = async ({ playlistId }) => {
   try {
     const response = await axiosInstance.get(`/playlist/${playlistId}`);
+    toast.success("Succesfully Fetched The Playlist");
     return response.data.data;
   } catch (error) {
     toast.error("Something Went Wrong");

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { NoVideoFound, PlayListCard } from "../components";
-import { getAllPlaylistSucess } from "../store/Slice/playlistSlice";
+import { getAllPlaylistSuccess } from "../store/Slice/playlistSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserPlaylists } from "../helper/playlistapicalls";
 
@@ -13,7 +13,7 @@ const Collections = () => {
     if (userId) {
       getUserPlaylists({ userId })
         .then((data) => {
-          dispatch(getAllPlaylistSucess(data));
+          dispatch(getAllPlaylistSuccess(data));
         })
         .catch((err) => console.log(err));
     }

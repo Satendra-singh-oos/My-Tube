@@ -7,7 +7,7 @@ import { getVideoByIdSuccess } from "../store/Slice/video.slice";
 import { getVideoComments } from "../helper/commentapicalls";
 import { getAllVideoCommentsSucesss } from "../store/Slice/comment.slice";
 import { getUserPlaylists } from "../helper/playlistapicalls";
-import { getAllPlaylistSucess } from "../store/Slice/playlistSlice";
+import { getAllPlaylistSuccess } from "../store/Slice/playlistSlice";
 
 const VideoPlay = () => {
   const dispactch = useDispatch();

@@ -1,6 +1,37 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { getPlaylistById } from "../helper/playlistapicalls";
+import { getPlaylistSuccess } from "../store/Slice/playlistSlice";
+import { NoVideoFound } from "../components";
 
 const SinglePlaylistView = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { playlistId } = useParams();
+
+  useEffect(() => {
+    if (playlistId) {
+      getPlaylistById({ playlistId })
+        .then((data) => {
+          dispatch(getPlaylistSuccess(data));
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [playlistId, dispatch]);
+
+  const playlistData = useSelector((state) => state.playlist?.playlist);
+
+  console.log(playlistData[0]);
+
+  if (!playlistData) {
+    return <NoVideoFound playlist={true} />;
+  }
+
+  if (playlistData.length === 0) {
+    return <NoVideoFound playlist={true} />;
+  }
   return (
     <>
       <div class="h-screen overflow-y-auto bg-[#121212] text-white">
@@ -11,8 +42,11 @@ const SinglePlaylistView = () => {
                 <div class="relative mb-2 w-full pt-[56%]">
                   <div class="absolute inset-0">
                     <img
-                      src="https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                      alt="React Mastery"
+                      src={
+                        playlistData[0].videos[playlistData[0].totalVideos - 1]
+                          .thumbnail
+                      }
+                      alt={playlistData[0].name}
                       class="h-full w-full"
                     />
                     <div class="absolute inset-x-0 bottom-0">
@@ -20,80 +54,97 @@ const SinglePlaylistView = () => {
                         <div class="relative z-[1]">
                           <p class="flex justify-between">
                             <span class="inline-block">Playlist</span>
-                            <span class="inline-block">12 videos</span>
+                            <span class="inline-block">
+                              {playlistData[0].totalVideos} videos
+                            </span>
                           </p>
                           <p class="text-sm text-gray-200">
-                            100K Views · 2 hours ago
+                            {playlistData[0].totalViews} Views · 2 hours ago
                           </p>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <h6 class="mb-1 font-semibold">React Mastery</h6>
+                <h6 class="mb-1 font-semibold">{playlistData[0].name}</h6>
                 <p class="flex text-sm text-gray-200">
-                  Master the art of building dynamic user interfaces with React.
+                  {playlistData[0].description || ""}
                 </p>
                 <div class="mt-6 flex items-center gap-x-3">
                   <div class="h-16 w-16 shrink-0">
                     <img
-                      src="https://images.pexels.com/photos/18264716/pexels-photo-18264716/free-photo-of-man-people-laptop-internet.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                      alt="React Patterns"
+                      src={playlistData[0].playlistOwner.avatar}
+                      alt={playlistData[0].playlistOwner.username}
                       class="h-full w-full rounded-full"
                     />
                   </div>
                   <div class="w-full">
-                    <h6 class="font-semibold">React Patterns</h6>
-                    <p class="text-sm text-gray-300">757K Subscribers</p>
+                    <h6 class="font-semibold">
+                      {playlistData[0].playlistOwner.username}
+                    </h6>
+                    <p class="text-sm text-gray-300">
+                      {playlistData[0].playlistOwner.totalSubscriber}{" "}
+                      Subscribers
+                    </p>
                   </div>
                 </div>
               </div>
               <div class="flex w-full flex-col gap-y-4">
-                <div class="border">
-                  <div class="w-full max-w-3xl gap-x-4 sm:flex">
-                    <div class="relative mb-2 w-full sm:mb-0 sm:w-5/12">
-                      <div class="w-full pt-[56%]">
-                        <div class="absolute inset-0">
-                          <img
-                            src="https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                            alt="JavaScript Fundamentals: Variables and Data Types"
-                            class="h-full w-full"
-                          />
-                        </div>
-                        <span class="absolute bottom-1 right-1 inline-block rounded bg-black px-1.5 text-sm">
-                          20:45
-                        </span>
-                      </div>
-                    </div>
-                    <div class="flex gap-x-2 px-2 sm:w-7/12 sm:px-0">
-                      <div class="h-10 w-10 shrink-0 sm:hidden">
-                        <img
-                          src="https://images.pexels.com/photos/3532545/pexels-photo-3532545.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                          alt="codemaster"
-                          class="h-full w-full rounded-full"
-                        />
-                      </div>
-                      <div class="w-full">
-                        <h6 class="mb-1 font-semibold sm:max-w-[75%]">
-                          JavaScript Fundamentals: Variables and Data Types
-                        </h6>
-                        <p class="flex text-sm text-gray-200 sm:mt-3">
-                          10.3k Views · 44 minutes ago
-                        </p>
-                        <div class="flex items-center gap-x-4">
-                          <div class="mt-2 hidden h-10 w-10 shrink-0 sm:block">
+                {playlistData[0].videos.map((video) => (
+                  <div class="border" key={video._id}>
+                    <div class="w-full max-w-3xl gap-x-4 sm:flex">
+                      <div class="relative mb-2 w-full sm:mb-0 sm:w-5/12">
+                        <div class="w-full pt-[56%]">
+                          <div
+                            class="absolute inset-0"
+                            onClick={() => navigate(`/watch/${video._id}`)}
+                          >
                             <img
-                              src="https://images.pexels.com/photos/3532545/pexels-photo-3532545.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                              alt="codemaster"
-                              class="h-full w-full rounded-full"
+                              src={video.thumbnail}
+                              alt={video.title}
+                              class="h-full w-full"
                             />
                           </div>
-                          <p class="text-sm text-gray-200">Code Master</p>
+                          <span class="absolute bottom-1 right-1 inline-block rounded bg-black px-1.5 text-sm">
+                            {video.duration}
+                          </span>
+                        </div>
+                      </div>
+                      <div class="flex gap-x-2 px-2 sm:w-7/12 sm:px-0">
+                        <div class="h-10 w-10 shrink-0 sm:hidden">
+                          <img
+                            src={video.owner.avatar}
+                            alt={video.owner.username}
+                            class="h-full w-full rounded-full"
+                          />
+                        </div>
+                        <div class="w-full">
+                          <h6
+                            class="mb-1 font-semibold sm:max-w-[75%]"
+                            onClick={() => navigate(`/watch/${video._id}`)}
+                          >
+                            {video.title}
+                          </h6>
+                          <p class="flex text-sm text-gray-200 sm:mt-3">
+                            {video.views} Views · {video.createdAt} minutes ago
+                          </p>
+                          <div class="flex items-center gap-x-4">
+                            <div class="mt-2 hidden h-10 w-10 shrink-0 sm:block">
+                              <img
+                                src={video.owner.avatar}
+                                alt={video.owner.username}
+                                class="h-full w-full rounded-full"
+                              />
+                            </div>
+                            <p class="text-sm text-gray-200">
+                              {video.owner.username}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
           </section>

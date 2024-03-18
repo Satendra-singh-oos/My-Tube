@@ -5,7 +5,7 @@ import {
   createPlaylist,
   getUserPlaylists,
 } from "../helper/playlistapicalls";
-import { getAllPlaylistSucess } from "../store/Slice/playlistSlice";
+import { getAllPlaylistSuccess } from "../store/Slice/playlistSlice";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
@@ -40,7 +40,7 @@ const AddToPlaylist = ({ videoId }) => {
     getUserPlaylists({ userId })
       .then((data) => {
         if (data.length > 0) {
-          dispactch(getAllPlaylistSucess(data));
+          dispactch(getAllPlaylistSuccess(data));
           setAllPlaylist(data);
         }
       })
