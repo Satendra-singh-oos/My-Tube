@@ -6,6 +6,12 @@ import subscribeSlice from "./Slice/subscribeSlice";
 import likeSlice from "./Slice/likeSlice";
 import playlistSlice from "./Slice/playlistSlice";
 import userSlice from "./Slice/userSlice";
+import dashboardSlice from "./Slice/dashboardSlice";
+//import logger from "redux-logger";
+
+// const middleWares = [process.env.NODE_ENV !== "production" && logger].filter(
+//   Boolean
+// );
 
 const store = configureStore({
   reducer: {
@@ -16,7 +22,9 @@ const store = configureStore({
     like: likeSlice,
     playlist: playlistSlice,
     user: userSlice,
+    dashboard: dashboardSlice,
   },
+  // middleware: () => middleWares,
 });
 
 export default store;

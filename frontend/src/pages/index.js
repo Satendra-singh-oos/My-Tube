@@ -1,3 +1,4 @@
+import Channel from "./Channel/Channel";
 import Collections from "./Collections";
 import Home from "./Home";
 import LikedPage from "./LikedPage";
@@ -20,4 +21,5 @@ export {
   MyContent,
   WatchHistory,
   SinglePlaylistView,
+  Channel,
 };

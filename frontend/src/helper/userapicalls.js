@@ -14,8 +14,8 @@ export const getUserWatchHistroy = async () => {
 
 export const userChannelProfile = async ({ username }) => {
   try {
-    const response = await axiosInstance.get(`$/users/channel/${username}`);
-    return response.data;
+    const response = await axiosInstance.get(`/users/channel/${username}`);
+    return response.data.data;
   } catch (error) {
     toast.error("Something Went Wrong");
     console.log(error?.response.data);

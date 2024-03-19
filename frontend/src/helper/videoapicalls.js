@@ -53,12 +53,16 @@ export const getVideoById = async ({ videoId }) => {
 export const publishAVideo = async (data) => {
   try {
     const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
+    formData.append("title", data.title);
+    formData.append("description", data.description);
     formData.append("videoFile", data.videoFile[0]);
     formData.append("thumbnail", data.thumbnail[0]);
 
-    const response = await axiosInstance.post("/video", formData);
+    const response = await axiosInstance.post(
+      "/videos/publish-video",
+      formData
+    );
+    toast.success("Your Video has Been Published 👏");
     return response.data.data;
   } catch (error) {
     toast.error("Some thing wen wrong");
@@ -68,22 +72,29 @@ export const publishAVideo = async (data) => {
 
 export const updateVideo = async ({ data, videoId }) => {
   try {
+    console.log("data " + data);
+    console.log("id " + videoId);
+
     const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
+    formData.append("title", data.title);
+    formData.append("description", data.description);
     formData.append("thumbnail", data.thumbnail[0]);
 
-    const response = await axiosInstance.post(`/videos/${videoId}`, formData);
+    const response = await axiosInstance.patch(`/videos/${videoId}`, formData);
+
+    toast.success("Updated The Video Details 😃");
     return response.data.data;
   } catch (error) {
     toast.error("Some thing wen wrong");
-    console.log(error?.response?.data);
+    console.log(error);
   }
 };
 
-export const deleteVideo = async ({ videoId }) => {
+export const deleteAVideo = async ({ videoId }) => {
   try {
+    console.log(videoId);
     const response = await axiosInstance.delete(`/videos/${videoId}`);
+    toast.success("Deleted The Video 😥");
     return response.data.data;
   } catch (error) {
     toast.error("Something wen wrong");
@@ -96,6 +107,11 @@ export const togglePublishStatus = async ({ videoId }) => {
     const response = await axiosInstance.patch(
       `/videos/toggle/publish/${videoId}`
     );
+    if (response.data.data.isPublished != true) {
+      toast.success("UnPublished The Video 😞");
+      return response.data.data;
+    }
+    toast.success("Published The Video 😃");
     return response.data.data;
   } catch (error) {
     toast.error("Something wen wrong");

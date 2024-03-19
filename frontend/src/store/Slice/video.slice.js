@@ -24,6 +24,22 @@ const videoSlice = createSlice({
     getVideoByIdSuccess: (state, action) => {
       state.video = action.payload;
     },
+
+    publishVideoUploading: (state, action) => {
+      state.uploading = true;
+    },
+    publishVideoSuccess: (state, action) => {
+      state.uploading = false;
+      state.uploaded = true;
+    },
+
+    togglePublishedSuccess: (state, action) => {
+      state.publishToggled = action.payload;
+    },
+
+    updateSuccess: (state, action) => {
+      state.uploaded = true;
+    },
     updateUploadState: (state) => {
       state.uploading = false;
       state.uploaded = false;
@@ -39,6 +55,10 @@ export const {
   getVideoByIdSuccess,
   updateUploadState,
   makeVideosNull,
+  togglePublishedSuccess,
+  updateSuccess,
+  publishVideoSuccess,
+  publishVideoUploading,
 } = videoSlice.actions;
 
 export default videoSlice.reducer;

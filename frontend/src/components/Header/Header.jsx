@@ -15,7 +15,7 @@ import {
   XCircle,
 } from "lucide-react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import LogoutBtn from "./LogoutBtn.jsx";
 
 const Header = () => {
@@ -33,6 +33,32 @@ const Header = () => {
       name: "Signup",
       slug: "/signup",
       active: !authStatus,
+    },
+  ];
+
+  const navItemSide = [
+    {
+      name: "Liked Videos",
+      icon: <ThumbsUpIcon />,
+      slug: "/liked-videos",
+    },
+
+    {
+      name: " My Content",
+      icon: <CameraIcon />,
+      slug: "/my-content",
+    },
+
+    {
+      name: "Support",
+      icon: <HelpCircle />,
+      slug: "/support",
+    },
+
+    {
+      name: "Setting",
+      icon: <Settings />,
+      slug: "/setting",
     },
   ];
   return (
@@ -65,38 +91,16 @@ const Header = () => {
                 </button>
               </div>
               <ul className="my-4 flex w-full flex-wrap gap-2 px-4 sm:hidden">
-                <li className="w-full">
-                  <button className="flex w-full items-center justify-start gap-x-4 border border-white px-4 py-1.5 text-left hover:bg-[#ae7aff] hover:text-black focus:border-[#ae7aff] focus:bg-[#ae7aff] focus:text-black">
-                    <span className="inline-block w-full max-w-[20px] group-hover:mr-4 lg:mr-4">
-                      <ThumbsUpIcon />
-                    </span>
-                    <span>Liked Videos</span>
-                  </button>
-                </li>
-                <li className="w-full">
-                  <button className="flex w-full items-center justify-start gap-x-4 border border-white px-4 py-1.5 text-left hover:bg-[#ae7aff] hover:text-black focus:border-[#ae7aff] focus:bg-[#ae7aff] focus:text-black">
-                    <span className="inline-block w-full max-w-[20px] group-hover:mr-4 lg:mr-4">
-                      <FolderClosed />
-                    </span>
-                    <span>My Content</span>
-                  </button>
-                </li>
-                <li className="w-full">
-                  <button className="flex w-full items-center justify-start gap-x-4 border border-white px-4 py-1.5 text-left hover:bg-[#ae7aff] hover:text-black focus:border-[#ae7aff] focus:bg-[#ae7aff] focus:text-black">
-                    <span className="inline-block w-full max-w-[20px] group-hover:mr-4 lg:mr-4">
-                      <HelpCircle />
-                    </span>
-                    <span>Support</span>
-                  </button>
-                </li>
-                <li className="w-full">
-                  <button className="flex w-full items-center justify-start gap-x-4 border border-white px-4 py-1.5 text-left hover:bg-[#ae7aff] hover:text-black focus:border-[#ae7aff] focus:bg-[#ae7aff] focus:text-black">
-                    <span className="inline-block w-full max-w-[20px] group-hover:mr-4 lg:mr-4">
-                      <Settings />
-                    </span>
-                    <span>Settings</span>
-                  </button>
-                </li>
+                {navItemSide.map((item) => (
+                  <NavLink className="w-full" to={item.slug} key={item.slug}>
+                    <button className="flex w-full items-center justify-start gap-x-4 border border-white px-4 py-1.5 text-left hover:bg-[#ae7aff] hover:text-black focus:border-[#ae7aff] focus:bg-[#ae7aff] focus:text-black">
+                      <span className="inline-block w-full max-w-[20px] group-hover:mr-4 lg:mr-4">
+                        {item.icon}
+                      </span>
+                      <span>{item.name}</span>
+                    </button>
+                  </NavLink>
+                ))}
               </ul>
               <div className="mb-8 mt-auto flex w-full flex-wrap gap-4 px-4 sm:mb-0 sm:mt-0 sm:items-center sm:px-0">
                 {navItems.map((item) =>
@@ -113,6 +117,7 @@ const Header = () => {
                 )}
                 {authStatus && (
                   <span>
+                    <span className=" text-white">MyProfile</span>
                     <LogoutBtn />
                   </span>
                 )}

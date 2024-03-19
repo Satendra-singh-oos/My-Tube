@@ -18,6 +18,14 @@ import AddToPlaylist from "./AddToPlaylist.jsx";
 import VideoListView from "./VideoListView.jsx";
 import SubscriberList from "./SubscriberList.jsx";
 import PlayListCard from "./PlayListCard.jsx";
+import VideoTable from "./Dashboard/VideoTable.jsx";
+import DeleteConfirm from "./Dashboard/DeleteConfirm.jsx";
+import DashboardStats from "./Dashboard/DashboardStats.jsx";
+import DashboardHeader from "./Dashboard/DashboardHeader.jsx";
+import EditVideoPopup from "./Dashboard/EditVideoPopup.jsx";
+import UploadVideoPopup from "./Dashboard/UploadVideoPopup.jsx";
+import TogglePublish from "./TogglePublish.jsx";
+import ImagePreview from "./ImagePreview.jsx";
 
 export {
   Signup,
@@ -40,4 +48,12 @@ export {
   VideoListView,
   SubscriberList,
   PlayListCard,
+  VideoTable,
+  DeleteConfirm,
+  DashboardStats,
+  DashboardHeader,
+  EditVideoPopup,
+  UploadVideoPopup,
+  TogglePublish,
+  ImagePreview,
 };

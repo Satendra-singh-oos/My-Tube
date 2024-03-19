@@ -22,7 +22,7 @@ const Sidebar = () => {
     },
     {
       name: "Liked Videos",
-      icon: <HomeIcon />,
+      icon: <ThumbsUpIcon />,
       slug: "/liked-videos",
     },
     {
