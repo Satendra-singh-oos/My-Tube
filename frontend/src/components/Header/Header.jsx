@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Logo } from "../../assets/Logo";
 import { Button, SearchBar } from "../index.js";
 
@@ -20,6 +20,9 @@ import LogoutBtn from "./LogoutBtn.jsx";
 
 const Header = () => {
   const authStatus = useSelector((state) => state.auth.status);
+  const avatar = useSelector((state) => state.auth?.userData?.avatar);
+  const username = useSelector((state) => state.auth?.userData?.username);
+  const [toggleMenu, setToggleMenu] = useState(false);
 
   const navigate = useNavigate();
 
@@ -76,52 +79,90 @@ const Header = () => {
             <button className="ml-auto sm:hidden">
               <Search />
             </button>
-            <button className="group peer ml-4 flex w-6 shrink-0 flex-wrap gap-y-1.5 sm:hidden">
+            <button
+              className="group peer ml-4 flex w-6 shrink-0 flex-wrap gap-y-1.5 sm:hidden"
+              onClick={() => setToggleMenu((prev) => !prev)}
+            >
               <span className="block h-[2px] w-full bg-white group-hover:bg-[#ae7aff]"></span>
               <span className="block h-[2px] w-2/3 bg-white group-hover:bg-[#ae7aff]"></span>
               <span className="block h-[2px] w-full bg-white group-hover:bg-[#ae7aff]"></span>
             </button>
-            <div className="fixed inset-y-0 right-0 flex w-full max-w-xs shrink-0 translate-x-full flex-col border-l border-white bg-[#121212] duration-200 hover:translate-x-0 peer-focus:translate-x-0 sm:static sm:ml-4 sm:w-auto sm:translate-x-0 sm:border-none">
-              <div className="relative flex w-full items-center justify-between border-b border-white px-4 py-2 sm:hidden">
-                <span className="inline-block w-12">
-                  <Logo />
-                </span>
-                <button className="inline-block w-8">
-                  <XCircle />
-                </button>
-              </div>
-              <ul className="my-4 flex w-full flex-wrap gap-2 px-4 sm:hidden">
-                {navItemSide.map((item) => (
-                  <NavLink className="w-full" to={item.slug} key={item.slug}>
-                    <button className="flex w-full items-center justify-start gap-x-4 border border-white px-4 py-1.5 text-left hover:bg-[#ae7aff] hover:text-black focus:border-[#ae7aff] focus:bg-[#ae7aff] focus:text-black">
-                      <span className="inline-block w-full max-w-[20px] group-hover:mr-4 lg:mr-4">
-                        {item.icon}
-                      </span>
-                      <span>{item.name}</span>
-                    </button>
-                  </NavLink>
-                ))}
-              </ul>
-              <div className="mb-8 mt-auto flex w-full flex-wrap gap-4 px-4 sm:mb-0 sm:mt-0 sm:items-center sm:px-0">
-                {navItems.map((item) =>
-                  item.active ? (
-                    <div key={item.name}>
-                      <button
-                        onClick={() => navigate(item.slug)}
-                        className="w-full bg-[#383737] px-3 py-2 hover:bg-[#4f4e4e] sm:w-auto sm:bg-transparent border-2 border-[#383737]"
-                      >
-                        {item.name}
-                      </button>
-                    </div>
-                  ) : null
-                )}
-                {authStatus && (
-                  <span>
-                    <span className=" text-white">MyProfile</span>
-                    <LogoutBtn />
+            {toggleMenu && (
+              <div className="fixed inset-y-0 right-0 flex w-full max-w-xs shrink-0 translate-x-full flex-col border-l border-white bg-[#121212] duration-200 hover:translate-x-0 peer-focus:translate-x-0 sm:static sm:ml-4 sm:w-auto sm:translate-x-0 sm:border-none">
+                <div className="relative flex w-full items-center justify-between border-b border-white px-4 py-2 sm:hidden">
+                  <span className="inline-block w-12">
+                    <Logo />
                   </span>
-                )}
+                  <button
+                    className="inline-block w-8"
+                    onClick={() => setToggleMenu((prev) => !prev)}
+                  >
+                    <XCircle />
+                  </button>
+                </div>
+                <ul className="my-4 flex w-full flex-wrap gap-2 px-4 sm:hidden">
+                  {navItemSide.map((item) => (
+                    <NavLink className="w-full" to={item.slug} key={item.slug}>
+                      <button className="flex w-full items-center justify-start gap-x-4 border border-white px-4 py-1.5 text-left hover:bg-[#ae7aff] hover:text-black focus:border-[#ae7aff] focus:bg-[#ae7aff] focus:text-black">
+                        <span className="inline-block w-full max-w-[20px] group-hover:mr-4 lg:mr-4">
+                          {item.icon}
+                        </span>
+                        <span>{item.name}</span>
+                      </button>
+                    </NavLink>
+                  ))}
+                </ul>
+                <div className="mb-8 mt-auto flex w-full flex-wrap gap-4 px-4 sm:mb-0 sm:mt-0 sm:items-center sm:px-0">
+                  {navItems.map((item) =>
+                    item.active ? (
+                      <div key={item.name}>
+                        <button
+                          onClick={() => navigate(item.slug)}
+                          className="w-full bg-[#383737] px-3 py-2 hover:bg-[#4f4e4e] sm:w-auto sm:bg-transparent border-2 border-[#383737]"
+                        >
+                          {item.name}
+                        </button>
+                      </div>
+                    ) : null
+                  )}
+                  {authStatus && (
+                    <div className="flex  gap-4 flex-col md:flex-row">
+                      <div
+                        className=" text-white flex items-center justify-center"
+                        onClick={() => navigate(`/channel/${username}`)}
+                      >
+                        <img
+                          src={avatar}
+                          alt={username}
+                          className="h-16 w-16 shrink-0 rounded-full sm:h-12 sm:w-12"
+                        />
+
+                        <div className="text-whtie   sm:hidden ">
+                          <span>@{username}</span>
+                        </div>
+                      </div>
+                      <LogoutBtn />
+                    </div>
+                  )}
+                </div>
               </div>
+            )}
+            <div className="hidden sm:block">
+              {authStatus && (
+                <div className="flex  gap-4 flex-col md:flex-row">
+                  <div
+                    className=" text-white flex items-center justify-center"
+                    onClick={() => navigate(`/channel/${username}`)}
+                  >
+                    <img
+                      src={avatar}
+                      alt={username}
+                      className="h-16 w-16 shrink-0 rounded-full sm:h-12 sm:w-12"
+                    />
+                  </div>
+                  <LogoutBtn />
+                </div>
+              )}
             </div>
           </nav>
         </header>

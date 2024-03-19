@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import store from "./store/store.js";
 import { AuthLayout } from "./components/index.js";
 import {
+  Channel,
   Collections,
   Home,
   LikedPage,
@@ -98,6 +99,14 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             <SinglePlaylistView />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/channel/:username",
+        element: (
+          <AuthLayout authentication>
+            <Channel />
           </AuthLayout>
         ),
       },
