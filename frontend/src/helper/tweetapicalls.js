@@ -4,6 +4,7 @@ import axiosInstance from "./axios/axiosInstance";
 export const createTweet = async ({ content }) => {
   try {
     const response = await axiosInstance.post(`/tweets`, { content });
+    toast.success("Tweet Posted Succesfully 😃");
     return response.data.data;
   } catch (error) {
     toast.error("Something Went Wrong");
@@ -16,6 +17,7 @@ export const updateTweet = async ({ tweetId, content }) => {
     const response = await axiosInstance.patch(`/tweets/${tweetId}`, {
       content,
     });
+    toast.success("Tweet updated 🤫");
     return response.data.data;
   } catch (error) {
     toast.error("Something Went Wrong");
@@ -27,6 +29,7 @@ export const deleteTweet = async ({ tweetId }) => {
   try {
     const response = await axiosInstance.delete(`tweets/${tweetId}`);
     // success message will be there show the message in toast
+    toast.success("Delted The Tweet 😞");
     return response.data;
   } catch (error) {
     toast.error("Something Went Wrong");

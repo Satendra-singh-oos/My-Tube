@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   loading: false,
   allPlaylist: null,
-  playlist: [],
+  playlists: [],
+  channelPlaylists: [],
 };
 
 const playlistSlice = createSlice({
@@ -16,12 +17,19 @@ const playlistSlice = createSlice({
     },
 
     getPlaylistSuccess: (state, action) => {
-      state.playlist = [...action.payload];
+      state.playlists = [...action.payload];
+    },
+
+    getPlaylistByUserSuccess: (state, action) => {
+      state.channelPlaylists = [...action.payload];
     },
   },
 });
 
-export const { getAllPlaylistSuccess, getPlaylistSuccess } =
-  playlistSlice.actions;
+export const {
+  getAllPlaylistSuccess,
+  getPlaylistSuccess,
+  getPlaylistByUserSuccess,
+} = playlistSlice.actions;
 
 export default playlistSlice.reducer;

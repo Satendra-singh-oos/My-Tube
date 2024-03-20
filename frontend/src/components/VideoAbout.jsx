@@ -22,7 +22,7 @@ const VideoAbout = ({
   channelId,
 }) => {
   const currentVideo = useSelector((state) => state.video?.video);
-  const dispactch = useDispatch();
+  const dispatch = useDispatch();
   const [isUserSubscribed, setIsUserSubscribed] = useState(isSubscribed);
 
   const [totalSubscriber, setTotalSubscriber] = useState(subscribersCount);
@@ -31,7 +31,7 @@ const VideoAbout = ({
     e.preventDefault();
     toggleSubscription({ channelId })
       .then((data) => {
-        dispactch(toggleSubscriptionSuccess(data));
+        dispatch(toggleSubscriptionSuccess(data));
 
         setIsUserSubscribed(!isUserSubscribed);
         if (isUserSubscribed) {

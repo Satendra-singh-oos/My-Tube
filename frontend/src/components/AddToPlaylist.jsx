@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
 const AddToPlaylist = ({ videoId }) => {
-  const dispactch = useDispatch();
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [allPlaylist, setAllPlaylist] = useState(null);
 
@@ -40,7 +40,7 @@ const AddToPlaylist = ({ videoId }) => {
     getUserPlaylists({ userId })
       .then((data) => {
         if (data.length > 0) {
-          dispactch(getAllPlaylistSuccess(data));
+          dispatch(getAllPlaylistSuccess(data));
           setAllPlaylist(data);
         }
       })

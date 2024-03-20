@@ -17,12 +17,12 @@ const commentSlice = createSlice({
       state.hasNextPage = action.payload.hasNextPage;
     },
 
-    createACommnet: (state, action) => {
+    createACommnetSuccess: (state, action) => {
       state.comments = state.comments.unshift(action.payload);
       state.totalComments += state.totalComments;
     },
 
-    deleteACommnet: (state, action) => {
+    deleteACommnetSuccess: (state, action) => {
       state.comments = state.comments.filter(
         (comment) => comment._id !== action.payload.commentId
       );
@@ -31,7 +31,10 @@ const commentSlice = createSlice({
   },
 });
 
-export const { getAllVideoCommentsSucesss, createACommnet, deleteACommnet } =
-  commentSlice.actions;
+export const {
+  getAllVideoCommentsSucesss,
+  createACommnetSuccess,
+  deleteACommnetSuccess,
+} = commentSlice.actions;
 
 export default commentSlice.reducer;

@@ -7,13 +7,13 @@ import { useDispatch } from "react-redux";
 const SubscriberList = ({ username, avatar, channelId }) => {
   //TODO: NAVIGATE TO THE USERCHANNEL
   const navigate = useNavigate();
-  const dispactch = useDispatch();
+  const dispatch = useDispatch();
 
   //   const handelSubscribed = (e) => {
   //     e.preventDefault();
   //     toggleSubscription({ channelId })
   //       .then((data) => {
-  //         dispactch(toggleSubscriptionSuccess(data));
+  //         dispatch(toggleSubscriptionSuccess(data));
   //       })
   //       .catch((err) => console.log(err));
   //   };

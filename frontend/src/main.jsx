@@ -18,6 +18,10 @@ import {
   SinglePlaylistView,
   VideoPlay,
   WatchHistory,
+  ChannelVideos,
+  ChannelPlaylist,
+  ChannelTweets,
+  ChannelSubscribers,
 } from "./pages/index.js";
 
 const router = createBrowserRouter([
@@ -109,6 +113,40 @@ const router = createBrowserRouter([
             <Channel />
           </AuthLayout>
         ),
+        children: [
+          {
+            path: "videos",
+            element: (
+              <AuthLayout authentication>
+                <ChannelVideos />
+              </AuthLayout>
+            ),
+          },
+          {
+            path: "playlist",
+            element: (
+              <AuthLayout authentication>
+                <ChannelPlaylist />
+              </AuthLayout>
+            ),
+          },
+          {
+            path: "tweets",
+            element: (
+              <AuthLayout authentication>
+                <ChannelTweets />
+              </AuthLayout>
+            ),
+          },
+          {
+            path: "subscribed",
+            element: (
+              <AuthLayout authentication>
+                <ChannelSubscribers />
+              </AuthLayout>
+            ),
+          },
+        ],
       },
     ],
   },

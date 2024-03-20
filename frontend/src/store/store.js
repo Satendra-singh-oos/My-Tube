@@ -7,6 +7,7 @@ import likeSlice from "./Slice/likeSlice";
 import playlistSlice from "./Slice/playlistSlice";
 import userSlice from "./Slice/userSlice";
 import dashboardSlice from "./Slice/dashboardSlice";
+import tweetSlice from "./Slice/tweetSlice";
 //import logger from "redux-logger";
 
 // const middleWares = [process.env.NODE_ENV !== "production" && logger].filter(
@@ -23,6 +24,7 @@ const store = configureStore({
     playlist: playlistSlice,
     user: userSlice,
     dashboard: dashboardSlice,
+    tweet: tweetSlice,
   },
   // middleware: () => middleWares,
 });

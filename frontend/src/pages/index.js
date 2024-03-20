@@ -1,4 +1,8 @@
 import Channel from "./Channel/Channel";
+import ChannelPlaylist from "./Channel/ChannelPlaylists";
+import ChannelSubscribers from "./Channel/ChannelSubscribers";
+import ChannelTweets from "./Channel/ChannelTweets";
+import ChannelVideos from "./Channel/ChannelVideos";
 import Collections from "./Collections";
 import Home from "./Home";
 import LikedPage from "./LikedPage";
@@ -22,4 +26,8 @@ export {
   WatchHistory,
   SinglePlaylistView,
   Channel,
+  ChannelTweets,
+  ChannelVideos,
+  ChannelPlaylist,
+  ChannelSubscribers,
 };

@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 
 const Login = () => {
   const navigate = useNavigate();
-  const dispactch = useDispatch();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -26,7 +26,7 @@ const Login = () => {
     };
     const response = await userLogin(loginData);
     if (response) {
-      dispactch(login(response));
+      dispatch(login(response));
       toast.success("User Login Succesfully");
     }
     navigate("/");

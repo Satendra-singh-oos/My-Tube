@@ -141,8 +141,8 @@ const Header = () => {
                           className="h-16 w-16 shrink-0 rounded-full sm:h-12 sm:w-12"
                         />
                         <div className="w-full pt-2 sm:hidden">
-                          <h6 className="font-semibold">{username}</h6>
-                          <p className="text-sm text-gray-300">@{fullName}</p>
+                          <h6 className="font-semibold">{fullName}</h6>
+                          <p className="text-sm text-gray-300">@{username}</p>
                         </div>
                       </button>
                     </div>

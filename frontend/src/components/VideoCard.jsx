@@ -16,9 +16,12 @@ const VideoCard = ({
 
   return (
     <>
-      <div className="w-full" onClick={() => navigate(`/watch/${videoId}`)}>
+      <div className="w-full">
         <div className="relative mb-2 w-full pt-[56%]">
-          <div className="absolute inset-0">
+          <div
+            className="absolute inset-0"
+            onClick={() => navigate(`/watch/${videoId}`)}
+          >
             <img
               src={thumbnail}
               alt={title}
@@ -30,7 +33,10 @@ const VideoCard = ({
           </span>
         </div>
         <div className="flex gap-x-2">
-          <div className="h-10 w-10 shrink-0">
+          <div
+            className="h-10 w-10 shrink-0"
+            onClick={() => navigate(`/channel/${channelName}`)}
+          >
             <img
               src={channelAvatar}
               alt={channelName}

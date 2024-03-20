@@ -10,7 +10,7 @@ import { login } from "../store/Slice/authSlice.js";
 
 const Signup = () => {
   const navigate = useNavigate();
-  const dispactch = useDispatch();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -20,7 +20,7 @@ const Signup = () => {
 
   const submit = async (data) => {
     const userData = await userSingup(data);
-    if (userData) dispactch(login(userData));
+    if (userData) dispatch(login(userData));
     navigate("/login");
   };
 

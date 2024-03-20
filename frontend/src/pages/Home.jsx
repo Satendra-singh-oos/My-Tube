@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 
 const Home = () => {
   const [videos, setVideos] = useState([]);
-  const dispactch = useDispatch();
+  const dispatch = useDispatch();
   // const videos = useSelector((state) => {
   //   state.video?.videos?.docs;
   // });
@@ -25,7 +25,7 @@ const Home = () => {
   useEffect(() => {
     getAllVideos({})
       .then((data) => {
-        dispactch(getAllVideosSuccess(data));
+        dispatch(getAllVideosSuccess(data));
         setVideos(data.docs);
       })
       .catch((error) => {

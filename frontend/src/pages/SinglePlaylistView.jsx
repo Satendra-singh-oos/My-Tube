@@ -22,9 +22,9 @@ const SinglePlaylistView = () => {
     }
   }, [playlistId, dispatch]);
 
-  const playlistData = useSelector((state) => state.playlist?.playlist);
+  const playlistData = useSelector((state) => state.playlist?.playlists);
 
-  console.log(playlistData[0]);
+  console.log(playlistData);
 
   if (!playlistData) {
     return <NoVideoFound playlist={true} />;

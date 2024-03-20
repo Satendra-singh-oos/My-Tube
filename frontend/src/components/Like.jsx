@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { ThumbsDown, ThumbsUp } from "lucide-react";
-
 import {
   toggleCommentLike,
   toggleTweetLike,
   toggleVideoLike,
 } from "../helper/likeapicalls";
+import toast from "react-hot-toast";
 
 const Like = ({ isLiked, videoId, tweetId, commentId, likeCount = 0 }) => {
   const [liked, setLiked] = useState(isLiked);
@@ -26,10 +26,10 @@ const Like = ({ isLiked, videoId, tweetId, commentId, likeCount = 0 }) => {
       toggleVideoLike({ videoId });
     }
     if (tweetId) {
-      toggleTweetLike(tweetId);
+      toggleTweetLike({ tweetId });
     }
     if (commentId) {
-      toggleCommentLike(commentId);
+      toggleCommentLike({ commentId });
     }
   };
 
@@ -37,6 +37,10 @@ const Like = ({ isLiked, videoId, tweetId, commentId, likeCount = 0 }) => {
     setLiked(isLiked);
     setTotalLike(likeCount);
   }, [isLiked, totalLike]);
+
+  const handleDislike = () => {
+    toast.success("Dislike The Tweet 😞");
+  };
 
   return (
     <div className="flex overflow-hidden rounded-lg border">
@@ -51,7 +55,7 @@ const Like = ({ isLiked, videoId, tweetId, commentId, likeCount = 0 }) => {
         className="group/btn flex items-center gap-x-2 px-4 py-1.5 after:content-[attr(data-like)] hover:bg-white/10 focus:after:content-[attr(data-like-alt)]"
         data-like=""
         data-like-alt=""
-        onClick={handleToggleLike}
+        onClick={handleDislike}
       >
         <span className="inline-block w-5 group-focus/btn:text-[#ae7aff]">
           <ThumbsDown height={20} width={20} />

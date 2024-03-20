@@ -9,15 +9,15 @@ import { Toaster } from "react-hot-toast";
 const App = () => {
   const [loading, setLoading] = useState(false);
 
-  const dispactch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const response = getCurrentUser()
       .then((response) => {
         if (response) {
-          dispactch(login(response));
+          dispatch(login(response));
         } else {
-          dispactch(logout());
+          dispatch(logout());
         }
       })
       .catch((err) => console.log(err.message))

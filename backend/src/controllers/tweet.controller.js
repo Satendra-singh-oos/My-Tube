@@ -56,50 +56,124 @@ const getUserTweets = asyncHandler(async (req, res) => {
       throw new ApiError(405, "Not A Valid UserId ");
     }
 
-    const getTweets = await User.aggregate([
+    // const getTweets = await User.aggregate([
+    //   {
+    //     $match: {
+    //       _id: new mongoose.Types.ObjectId(userId),
+    //     },
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: "tweets",
+    //       localField: "_id",
+    //       foreignField: "owner",
+    //       as: "tweets",
+    //       pipeline: [
+    //         {
+    //           $lookup: {
+    //             from: "likes",
+    //             localField: "_id",
+    //             foreignField: "tweet",
+    //             as: "likes",
+    //           },
+    //         },
+    //         {
+    //           $addFields: {
+    //             totalLikes: {
+    //               $size: "$likes",
+    //             },
+    //           },
+    //         },
+    //         {
+    //           $project: {
+    //             content: 1,
+    //             createdAt: 1,
+    //             totalLikes: 1,
+    //           },
+    //         },
+    //       ],
+    //     },
+    //   },
+    //   {
+    //     $project: {
+    //       username: 1,
+    //       avatar: 1,
+    //       tweets: 1,
+    //       totalLikes: 1,
+    //     },
+    //   },
+    // ]);
+
+    const getTweets = await Tweet.aggregate([
       {
         $match: {
-          _id: new mongoose.Types.ObjectId(userId),
+          owner: new mongoose.Types.ObjectId(userId),
         },
       },
+
       {
         $lookup: {
-          from: "tweets",
-          localField: "_id",
-          foreignField: "owner",
-          as: "tweets",
+          from: "users",
+          localField: "owner",
+          foreignField: "_id",
+          as: "ownerDetails",
           pipeline: [
             {
-              $lookup: {
-                from: "likes",
-                localField: "_id",
-                foreignField: "tweet",
-                as: "likes",
-              },
-            },
-            {
-              $addFields: {
-                totalLikes: {
-                  $size: "$likes",
-                },
-              },
-            },
-            {
               $project: {
-                content: 1,
-                createdAt: 1,
-                totalLikes: 1,
+                username: 1,
+                avatar: 1,
               },
             },
           ],
         },
       },
+
+      {
+        $lookup: {
+          from: "likes",
+          localField: "_id",
+          foreignField: "tweet",
+          as: "likeDetails",
+          pipeline: [
+            {
+              $project: {
+                likedBy: 1,
+              },
+            },
+          ],
+        },
+      },
+
+      {
+        $addFields: {
+          likesCount: {
+            $size: "$likeDetails",
+          },
+          ownerDetails: {
+            $first: "$ownerDetails",
+          },
+          isLiked: {
+            $cond: {
+              if: { $in: [req.user?._id, "$likeDetails.likedBy"] },
+              then: true,
+              else: false,
+            },
+          },
+        },
+      },
+
+      {
+        $sort: {
+          createdAt: -1,
+        },
+      },
       {
         $project: {
-          username: 1,
-          avatar: 1,
-          tweets: 1,
-          totalLikes: 1,
+          content: 1,
+          ownerDetails: 1,
+          likesCount: 1,
+          createdAt: 1,
+          isLiked: 1,
         },
       },
     ]);

@@ -26,6 +26,10 @@ import EditVideoPopup from "./Dashboard/EditVideoPopup.jsx";
 import UploadVideoPopup from "./Dashboard/UploadVideoPopup.jsx";
 import TogglePublish from "./TogglePublish.jsx";
 import ImagePreview from "./ImagePreview.jsx";
+import ChannelNavigate from "./Channel/ChannelNavigate.jsx";
+import ChannelHeader from "./Channel/ChannelHeader.jsx";
+import TweetAndCommentInput from "./TweetAndCommentInput.jsx";
+import TweetList from "./TweetList.jsx";
 
 export {
   Signup,
@@ -56,4 +60,8 @@ export {
   UploadVideoPopup,
   TogglePublish,
   ImagePreview,
+  ChannelNavigate,
+  ChannelHeader,
+  TweetAndCommentInput,
+  TweetList,
 };

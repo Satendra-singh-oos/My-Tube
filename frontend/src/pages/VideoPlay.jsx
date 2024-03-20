@@ -10,7 +10,7 @@ import { getUserPlaylists } from "../helper/playlistapicalls";
 import { getAllPlaylistSuccess } from "../store/Slice/playlistSlice";
 
 const VideoPlay = () => {
-  const dispactch = useDispatch();
+  const dispatch = useDispatch();
   const { videoId } = useParams();
   const userId = useSelector((state) => state.auth.userData?._id);
 
@@ -18,17 +18,17 @@ const VideoPlay = () => {
     if (videoId) {
       const video = getVideoById({ videoId })
         .then((data) => {
-          dispactch(getVideoByIdSuccess(data));
+          dispatch(getVideoByIdSuccess(data));
         })
         .catch((err) => console.log(err?.response?.data));
 
       const comments = getVideoComments({ videoId })
         .then((data) => {
-          dispactch(getAllVideoCommentsSucesss(data));
+          dispatch(getAllVideoCommentsSucesss(data));
         })
         .catch((err) => console.log(err));
     }
-  }, [videoId, dispactch]);
+  }, [videoId, dispatch]);
 
   const currentVideo = useSelector((state) => state.video?.video);
 
