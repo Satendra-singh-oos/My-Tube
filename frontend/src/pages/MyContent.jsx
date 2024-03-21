@@ -23,9 +23,9 @@ const MyContent = () => {
   const uploaded = useSelector((state) => state.video?.uploading);
   const deleteVideo = useSelector((state) => state.video?.loading);
   const dispatch = useDispatch();
-  const channelOldVideo = useSelector(
-    (state) => state.dashboard?.channelVideos
-  );
+  // const channelOldVideo = useSelector(
+  //   (state) => state.dashboard?.channelVideos
+  // );
 
   const [popUp, setPopUp] = useState({
     uploadVideo: false,
@@ -49,7 +49,7 @@ const MyContent = () => {
         dispatch(getChannelVideosSuccess(data));
       })
       .catch((err) => console.log(err));
-  }, [dispatch, publishToggled, uploaded, deleteVideo, channelOldVideo]);
+  }, [dispatch, publishToggled, uploaded, deleteVideo]);
 
   const channelStats = useSelector((state) => state.dashboard?.channelStats);
   const channelVideos = useSelector((state) => state.dashboard?.channelVideos);

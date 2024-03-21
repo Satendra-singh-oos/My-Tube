@@ -35,7 +35,7 @@ const SideVideos = () => {
             <div className="flex gap-x-2 px-2 pb-4 pt-1 md:w-7/12 md:px-0 md:py-0.5">
               <div className="h-12 w-12 shrink-0 md:hidden">
                 <img
-                  src={video.thumbnail}
+                  src={video.channelInfo?.avatar}
                   alt={video.title}
                   className="h-full w-full rounded-full"
                 />

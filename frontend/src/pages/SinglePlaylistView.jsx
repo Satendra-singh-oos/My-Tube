@@ -24,7 +24,7 @@ const SinglePlaylistView = () => {
 
   const playlistData = useSelector((state) => state.playlist?.playlists);
 
-  console.log(playlistData);
+  //console.log(playlistData);
 
   if (!playlistData) {
     return <NoVideoFound playlist={true} />;
@@ -113,7 +113,12 @@ const SinglePlaylistView = () => {
                         </div>
                       </div>
                       <div class="flex gap-x-2 px-2 sm:w-7/12 sm:px-0">
-                        <div class="h-10 w-10 shrink-0 sm:hidden">
+                        <div
+                          class="h-10 w-10 shrink-0 sm:hidden"
+                          onClick={() =>
+                            navigate(`/channel/${video.owner.username}`)
+                          }
+                        >
                           <img
                             src={video.owner.avatar}
                             alt={video.owner.username}
@@ -137,6 +142,9 @@ const SinglePlaylistView = () => {
                                 src={video.owner.avatar}
                                 alt={video.owner.username}
                                 class="h-full w-full rounded-full"
+                                onClick={() =>
+                                  navigate(`/channel/${video.owner.username}`)
+                                }
                               />
                             </div>
                             <p class="text-sm text-gray-200">

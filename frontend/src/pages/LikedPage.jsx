@@ -12,7 +12,7 @@ const LikedPage = () => {
 
   useEffect(() => {
     getLikedVideos().then((data) => {
-      console.log(data);
+      //console.log(data);
       dispatach(getLikedVideosSuccess(data));
       //  setLikedVideos(data);
     });
@@ -28,9 +28,9 @@ const LikedPage = () => {
   }
 
   return (
-    <div class="h-screen overflow-y-auto bg-[#121212] text-white">
-      <div class="flex min-h-[calc(100vh-66px)] sm:min-h-[calc(100vh-82px)]">
-        <section class="w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
+    <div className="h-screen overflow-y-auto bg-[#121212] text-white">
+      <div className="flex min-h-[calc(100vh-66px)] sm:min-h-[calc(100vh-82px)]">
+        <section className="w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
           {likedVideos.map((like) => (
             <VideoListView
               key={like._id}

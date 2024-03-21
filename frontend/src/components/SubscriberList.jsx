@@ -21,7 +21,10 @@ const SubscriberList = ({ username, avatar, channelId }) => {
   return (
     <div className="flex w-full justify-between">
       <div className="flex items-center gap-x-2">
-        <div className="h-14 w-14 shrink-0">
+        <div
+          className="h-14 w-14 shrink-0"
+          onClick={() => navigate(`/channel/${username}`)}
+        >
           <img
             src={avatar}
             alt="Channel Avatar"

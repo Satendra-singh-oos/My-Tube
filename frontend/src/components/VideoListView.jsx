@@ -14,15 +14,16 @@ const VideoListView = ({
   views,
 }) => {
   const navigate = useNavigate();
+
   return (
-    <div
-      className="flex flex-col gap-4 p-4"
-      onClick={() => navigate(`/watch/${videoId}`)}
-    >
+    <div className="flex flex-col gap-4 p-4">
       <div className="w-full max-w-3xl gap-x-4 md:flex">
         <div className="relative mb-2 w-full md:mb-0 md:w-5/12">
           <div className="w-full pt-[56%]">
-            <div className="absolute inset-0">
+            <div
+              className="absolute inset-0"
+              onClick={() => navigate(`/watch/${videoId}`)}
+            >
               <img
                 src={thumbnail}
                 alt={title}
@@ -35,7 +36,10 @@ const VideoListView = ({
           </div>
         </div>
         <div className="flex gap-x-2 md:w-7/12">
-          <div className="h-10 w-10 shrink-0 md:hidden">
+          <div
+            className="h-10 w-10 shrink-0 md:hidden"
+            onClick={() => navigate(`/channel/${channelName}`)}
+          >
             <img
               src={channelAvatar}
               alt={channelName}
@@ -48,7 +52,10 @@ const VideoListView = ({
               {views} Views · {calculateTimeAgo(createdAt)}
             </p>
             <div className="flex items-center gap-x-4">
-              <div className="mt-2 hidden h-10 w-10 shrink-0 md:block">
+              <div
+                className="mt-2 hidden h-10 w-10 shrink-0 md:block"
+                onClick={() => navigate(`/channel/${channelName}`)}
+              >
                 <img
                   src={channelAvatar}
                   alt={channelName}

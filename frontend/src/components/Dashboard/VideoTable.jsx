@@ -1,8 +1,10 @@
 import React from "react";
 import TogglePublish from "../TogglePublish";
 import { Pencil, Trash2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const VideoTable = ({ channelVideos, setPopUp, setVideoDetails }) => {
+  const navigate = useNavigate();
   return (
     <div className="w-full overflow-auto">
       <table className="w-full min-w-[1200px] border-collapse border text-white">
@@ -46,6 +48,7 @@ const VideoTable = ({ channelVideos, setPopUp, setVideoDetails }) => {
                     className="h-10 w-10 rounded-full"
                     src={video?.thumbnail}
                     alt={video?.title}
+                    onClick={() => navigate(`/watch/${video?._id}`)}
                   />
                   <h3 className="font-semibold">{video?.title}</h3>
                 </div>
