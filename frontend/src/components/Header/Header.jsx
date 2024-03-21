@@ -17,6 +17,7 @@ import {
 import { useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import LogoutBtn from "./LogoutBtn.jsx";
+import { useForm } from "react-hook-form";
 
 const Header = () => {
   const authStatus = useSelector((state) => state.auth.status);
@@ -66,6 +67,14 @@ const Header = () => {
       slug: "/setting",
     },
   ];
+
+  const { register, handleSubmit } = useForm();
+
+  const search = (data) => {
+    const query = data?.query;
+
+    navigate(`/search/${query}`);
+  };
   return (
     <>
       <div className="h-screenbg-[#121212] text-white">
@@ -78,9 +87,16 @@ const Header = () => {
               <Logo />
             </div>
             <SearchBar />
-            <button className="ml-auto sm:hidden">
-              <Search />
-            </button>
+            <form
+              className="ml-auto sm:hidden flex items-center justify-center"
+              onSubmit={handleSubmit(search)}
+            >
+              <input
+                className="w-full border bg-transparent py-1 pl-8 pr-3  outline-none sm:py-2"
+                placeholder="Search"
+                {...register("query", { required: true })}
+              />
+            </form>
             <button
               className="group peer ml-4 flex w-6 shrink-0 flex-wrap gap-y-1.5 sm:hidden"
               onClick={() => setToggleMenu((prev) => !prev)}

@@ -29,6 +29,8 @@ import {
   ChannelTweets,
   ChannelSubscribers,
   Setting,
+  Support,
+  SearchVideos,
 } from "./pages/index.js";
 
 const router = createBrowserRouter([
@@ -39,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/support",
+        element: <Support />,
       },
       {
         path: "/login",
@@ -113,6 +119,16 @@ const router = createBrowserRouter([
           </AuthLayout>
         ),
       },
+
+      {
+        path: "/search/:query",
+        element: (
+          <AuthLayout authentication>
+            <SearchVideos />
+          </AuthLayout>
+        ),
+      },
+
       {
         path: "/channel/:username",
         element: (

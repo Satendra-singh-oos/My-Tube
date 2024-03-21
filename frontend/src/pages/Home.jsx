@@ -23,7 +23,8 @@ const Home = () => {
   // const hasNextPage = useSelector((state) => state.video?.videos?.hasNextPage);
 
   useEffect(() => {
-    getAllVideos({})
+    const limit = 50;
+    getAllVideos({ limit })
       .then((data) => {
         dispatch(getAllVideosSuccess(data));
         setVideos(data.docs);
@@ -49,6 +50,7 @@ const Home = () => {
                   {videos?.map((video) => (
                     <VideoCard
                       key={video._id}
+                      title={video?.title}
                       channelAvatar={video?.channelInfo?.avatar}
                       channelName={video?.channelInfo?.username}
                       views={video?.views}
