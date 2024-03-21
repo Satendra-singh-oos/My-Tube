@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { createTweet } from "../helper/tweetapicalls";
 import { creatUserTweet } from "../store/Slice/tweetSlice";
 import { addComment } from "../helper/commentapicalls";
 import { createACommnetSuccess } from "../store/Slice/comment.slice";
+import toast from "react-hot-toast";
 
 const TweetAndCommentInput = ({ comment, tweet, videoId }) => {
   const { handleSubmit, register, setValue } = useForm();
@@ -21,6 +22,7 @@ const TweetAndCommentInput = ({ comment, tweet, videoId }) => {
         addComment({ videoId, content: data.content })
           .then((data) => {
             dispatch(createACommnetSuccess(data));
+            toast.success("PLZ RELOAD TO SEE COMMENT FOR NOW WIll FiX IT SOON");
           })
           .catch((err) => console.log(err));
       }

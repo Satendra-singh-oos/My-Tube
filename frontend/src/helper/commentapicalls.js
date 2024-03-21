@@ -26,6 +26,7 @@ export const addComment = async ({ videoId, content }) => {
     const resposne = await axiosInstance.post(`/comments/${videoId}`, {
       content,
     });
+    toast.success("Comment Added Succesfuly ");
     return resposne.data.data;
   } catch (error) {
     toast.error("Something Went Wrong");

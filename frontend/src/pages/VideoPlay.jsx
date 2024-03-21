@@ -1,11 +1,20 @@
 import React, { useEffect } from "react";
-import { CommentsList, SideVideos, Video, VideoAbout } from "../components";
+import {
+  CommentsList,
+  SideVideos,
+  TweetAndCommentInput,
+  Video,
+  VideoAbout,
+} from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getVideoById } from "../helper/videoapicalls";
 import { getVideoByIdSuccess } from "../store/Slice/video.slice";
 import { getVideoComments } from "../helper/commentapicalls";
-import { getAllVideoCommentsSucesss } from "../store/Slice/comment.slice";
+import {
+  cleanUpComments,
+  getAllVideoCommentsSucesss,
+} from "../store/Slice/comment.slice";
 import { getUserPlaylists } from "../helper/playlistapicalls";
 import { getAllPlaylistSuccess } from "../store/Slice/playlistSlice";
 
@@ -28,6 +37,7 @@ const VideoPlay = () => {
         })
         .catch((err) => console.log(err));
     }
+    return () => dispatch(cleanUpComments());
   }, [videoId, dispatch]);
 
   const currentVideo = useSelector((state) => state.video?.video);
@@ -69,13 +79,19 @@ const VideoPlay = () => {
                     channelId={currentVideo[0]?.channelInfo?._id}
                   />
                   {/* Comment Bellow  */}
+                  {/* <TweetAndCommentInput comment={true} videoId={videoId} /> */}
                   <button className="peer w-full rounded-lg border p-4  text-left duration-200 hover:bg-white/5 focus:bg-white/5 sm:hidden">
                     <h6 className="font-semibold">
                       {totalComments} Comments...
                     </h6>
                   </button>
 
-                  <CommentsList />
+                  {/* <TweetAndCommentInput /> */}
+
+                  <CommentsList
+                    videoId={currentVideo[0]?._id}
+                    key={currentVideo[0].channelInfo._id}
+                  />
                 </div>
                 {/* Side Videos */}
                 <SideVideos />

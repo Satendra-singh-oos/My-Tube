@@ -18,8 +18,8 @@ const commentSlice = createSlice({
     },
 
     createACommnetSuccess: (state, action) => {
-      state.comments = state.comments.unshift(action.payload);
-      state.totalComments += state.totalComments;
+      state.comments.unshift(action.payload);
+      state.totalComments;
     },
 
     deleteACommnetSuccess: (state, action) => {
@@ -28,6 +28,10 @@ const commentSlice = createSlice({
       );
       state.totalComments -= state.totalComments;
     },
+
+    cleanUpComments: (state, action) => {
+      state.comments = [];
+    },
   },
 });
 
@@ -35,6 +39,7 @@ export const {
   getAllVideoCommentsSucesss,
   createACommnetSuccess,
   deleteACommnetSuccess,
+  cleanUpComments,
 } = commentSlice.actions;
 
 export default commentSlice.reducer;
