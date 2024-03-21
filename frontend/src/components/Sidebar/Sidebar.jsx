@@ -47,6 +47,20 @@ const Sidebar = () => {
     },
   ];
 
+  const sideBottom = [
+    {
+      name: "Support",
+      icon: <HelpCircle />,
+      slug: "/support",
+    },
+
+    {
+      name: "Setting",
+      icon: <Settings />,
+      slug: "/setting",
+    },
+  ];
+
   const bottomSideItems = [
     {
       name: "Home",
@@ -89,14 +103,16 @@ const Sidebar = () => {
             ))}
           </div>
           <div className="space-y-4 mb-10">
-            <div className="flex items-center gap-2 justify-center sm:justify-start hover:bg-purple-500 cursor-pointer py-1 px-2 border  border-white">
-              <HelpCircle size={25} />
-              <span className="text-base hidden md:block">Support</span>
-            </div>
-            <div className="flex items-center gap-2 justify-center sm:justify-start hover:bg-purple-500 cursor-pointer py-1 px-2 border  border-white">
-              <Settings size={25} />
-              <span className="text-base hidden md:block">Settings</span>
-            </div>
+            {sideBottom.map((item) => (
+              <NavLink
+                className="flex items-center gap-2 justify-center sm:justify-start hover:bg-purple-500 cursor-pointer py-1 px-2 border  border-white"
+                to={item.slug}
+                key={item.slug}
+              >
+                {item.icon}
+                <span className="text-base hidden md:block">{item.name}</span>
+              </NavLink>
+            ))}
           </div>
         </div>
       </div>

@@ -55,7 +55,7 @@ export const refreshToken = async () => {
 export const changePassword = async (data) => {
   try {
     const resposne = await axiosInstance.post("/users/change-Password", data);
-    toast.success(resposne.data?.message);
+    toast.success("Succesfully Update The Password");
     return resposne.data;
   } catch (error) {
     toast.error(error?.response.data.message);
@@ -73,11 +73,10 @@ export const getCurrentUser = async () => {
   }
 };
 
-export const updateAvatar = async () => {
+export const updateAvatar = async (data) => {
   try {
     const formData = new FormData();
     formData.append("avatar", data.avatar[0]);
-
     const resposne = await axiosInstance.patch(
       "/users/update-avatar",
       formData
@@ -91,7 +90,7 @@ export const updateAvatar = async () => {
   }
 };
 
-export const updateCoverImage = async () => {
+export const updateCoverImage = async (data) => {
   try {
     const formData = new FormData();
     formData.append("coverImage", data.coverImage[0]);

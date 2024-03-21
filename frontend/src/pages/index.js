@@ -9,6 +9,7 @@ import LikedPage from "./LikedPage";
 import Login from "./Login";
 import MyContent from "./MyContent";
 import MySubscriptions from "./MySubscriptions";
+import Setting from "./Setting/Setting";
 import Signup from "./Signup";
 import SinglePlaylistView from "./SinglePlaylistView";
 import VideoPlay from "./VideoPlay";
@@ -30,4 +31,5 @@ export {
   ChannelVideos,
   ChannelPlaylist,
   ChannelSubscribers,
+  Setting,
 };

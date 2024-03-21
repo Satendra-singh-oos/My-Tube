@@ -8,11 +8,11 @@ const ChannelHeader = ({
   avatar,
   username,
   fullName,
-  subscribersCount,
-  subscribedCount,
-  isSubscribed,
+  subscribersCount = 0,
+  subscribedCount = 0,
+  isSubscribed = false,
   channelId,
-  edit,
+  setting = false,
 }) => {
   const [localIsSubscribed, setLocalIsSubscribed] = useState(isSubscribed);
   const [localSubscribersCount, setLocalSubscribersCount] =
@@ -56,14 +56,17 @@ const ChannelHeader = ({
           <span className="relative -mt-12 inline-block h-28 w-28 shrink-0 overflow-hidden rounded-full border-2">
             <img src={avatar} alt="Channel" className="h-full w-full" />
           </span>
+
           <div className="mr-auto inline-block">
             <h1 className="font-bolg text-xl">{fullName}</h1>
             <p className="text-sm text-gray-400">@{username}</p>
-            <p className="text-sm text-gray-400">
-              {localSubscribersCount && localSubscribersCount} Subscribers · 
-              {subscribedCount && subscribedCount}
-              Subscribed
-            </p>
+            {setting === false && (
+              <p className="text-sm text-gray-400">
+                {localSubscribersCount && localSubscribersCount} Subscribers · 
+                {subscribedCount && subscribedCount}
+                Subscribed
+              </p>
+            )}
           </div>
 
           {user != userProfile && (

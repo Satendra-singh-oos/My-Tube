@@ -5,7 +5,13 @@ import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
-import { AuthLayout } from "./components/index.js";
+import {
+  AuthLayout,
+  ChangePassword,
+  EditPersonal,
+  UpdateAvatar,
+  UpdateCoverImage,
+} from "./components/index.js";
 import {
   Channel,
   Collections,
@@ -22,6 +28,7 @@ import {
   ChannelPlaylist,
   ChannelTweets,
   ChannelSubscribers,
+  Setting,
 } from "./pages/index.js";
 
 const router = createBrowserRouter([
@@ -143,6 +150,50 @@ const router = createBrowserRouter([
             element: (
               <AuthLayout authentication>
                 <ChannelSubscribers />
+              </AuthLayout>
+            ),
+          },
+        ],
+      },
+
+      {
+        path: "/setting",
+        element: (
+          <AuthLayout authentication>
+            <Setting />
+          </AuthLayout>
+        ),
+        children: [
+          {
+            path: "personal",
+            element: (
+              <AuthLayout authentication>
+                <EditPersonal />
+              </AuthLayout>
+            ),
+          },
+
+          {
+            path: "password",
+            element: (
+              <AuthLayout authentication>
+                <ChangePassword />
+              </AuthLayout>
+            ),
+          },
+          {
+            path: "avatar",
+            element: (
+              <AuthLayout authentication>
+                <UpdateAvatar />
+              </AuthLayout>
+            ),
+          },
+          {
+            path: "coverImage",
+            element: (
+              <AuthLayout authentication>
+                <UpdateCoverImage />
               </AuthLayout>
             ),
           },

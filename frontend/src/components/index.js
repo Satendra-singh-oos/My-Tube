@@ -30,6 +30,11 @@ import ChannelNavigate from "./Channel/ChannelNavigate.jsx";
 import ChannelHeader from "./Channel/ChannelHeader.jsx";
 import TweetAndCommentInput from "./TweetAndCommentInput.jsx";
 import TweetList from "./TweetList.jsx";
+import EditPersonal from "./Setting/EditPersonal.jsx";
+
+import ChangePassword from "./Setting/ChangePassword.jsx";
+import UpdateAvatar from "./Setting/UpdateAvatar.jsx";
+import UpdateCoverImage from "./Setting/UpdateCoverImage.jsx";
 
 export {
   Signup,
@@ -64,4 +69,8 @@ export {
   ChannelHeader,
   TweetAndCommentInput,
   TweetList,
+  EditPersonal,
+  ChangePassword,
+  UpdateAvatar,
+  UpdateCoverImage,
 };

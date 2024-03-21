@@ -22,17 +22,17 @@ const authSlice = createSlice({
       state.status = true;
       state.userData = action.payload;
     },
-    updatedAvatar: (state, action) => {
+    updatedAvatarSucess: (state, action) => {
       state.status = true;
       state.userData = action.payload;
     },
 
-    updatedCoverImage: (state, action) => {
+    updatedCoverImageSucess: (state, action) => {
       state.status = true;
       state.userData = action.payload;
     },
 
-    updatedUserDetails: (state, action) => {
+    updatedUserDetailsSucess: (state, action) => {
       state.status = true;
       state.userData = action.payload;
     },
@@ -43,9 +43,9 @@ export const {
   login,
   logout,
   currentUser,
-  updatedAvatar,
-  updatedCoverImage,
-  updatedUserDetails,
+  updatedAvatarSucess,
+  updatedCoverImageSucess,
+  updatedUserDetailsSucess,
 } = authSlice.actions;
 
 export default authSlice.reducer;
