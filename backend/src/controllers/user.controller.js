@@ -156,6 +156,7 @@ const loginUser = asyncHandler(async (req, res) => {
       httpOnly: true,
       secure: true,
       SameSite: "None",
+      Domain: "play-my-tube-frontend.vercel.app",
     };
 
     return res
@@ -205,6 +206,7 @@ const logoutUser = asyncHandler(async (req, res) => {
       httpOnly: true,
       secure: true,
       SameSite: "None",
+      Domain: "play-my-tube-frontend.vercel.app",
     };
 
     return res
@@ -273,6 +275,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     httpOnly: true,
     secure: true,
     SameSite: "None",
+    Domain: "play-my-tube-frontend.vercel.app",
   };
 
   return res
