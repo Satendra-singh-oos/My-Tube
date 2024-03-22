@@ -5,6 +5,7 @@ const userSchemaValidation = Joi.object({
     .min(4)
     .max(55)
     .message("The full name is required to create the account")
+    .trim()
     .required(),
 
   username: Joi.string()
@@ -14,12 +15,14 @@ const userSchemaValidation = Joi.object({
     .message(
       "The username is required and can only contain letters, numbers, '@', and '_'"
     )
+    .trim()
     .required(),
 
   email: Joi.string().email().message("Email type is not correct").required(),
 
   password: Joi.string()
     .pattern(/^[A-Za-z0-9@]+$/)
+    .trim()
     .required()
     .min(4)
     .max(12)

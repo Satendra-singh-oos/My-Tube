@@ -5,7 +5,7 @@ import { Logo } from "../assets/Logo.jsx";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { Button, Input } from "./index.js";
-import { userSingup } from "../helper/authapicalls.js";
+import { getCurrentUser, userSingup } from "../helper/authapicalls.js";
 import { login } from "../store/Slice/authSlice.js";
 
 const Signup = () => {
@@ -20,8 +20,15 @@ const Signup = () => {
 
   const submit = async (data) => {
     const userData = await userSingup(data);
-    if (userData) dispatch(login(userData));
-    navigate("/login");
+    if (userData)
+      //  dispatch(login(userData));
+      navigate("/login");
+    // userSingup(data)
+    //   .then((data) => {
+    //     dispatch(login(data));
+    //     navigate("/login");
+    //   })
+    //   .catch((err) => console.log(err));
   };
 
   return (

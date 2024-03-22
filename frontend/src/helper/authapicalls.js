@@ -1,5 +1,6 @@
 import toast from "react-hot-toast";
 import axiosInstance from "./axios/axiosInstance.js";
+import { useNavigate } from "react-router-dom";
 
 export const userSingup = async (data) => {
   const formData = new FormData();
@@ -13,10 +14,11 @@ export const userSingup = async (data) => {
   try {
     const response = await axiosInstance.post("/users/register", formData);
     toast.success("Registerd User Successfully");
+
     return response.data;
   } catch (error) {
-    console.log(error);
-    toast.error(error?.message);
+    toast.error(error?.response.data.message);
+    toast.error("Refresh Once");
     throw error;
   }
 };
@@ -26,7 +28,8 @@ export const userLogin = async (data) => {
     const resposne = await axiosInstance.post("/users/login", data);
     return resposne.data.data.user;
   } catch (error) {
-    toast.error(error?.response?.data);
+    // toast.error("Something Went Wrong Please Try Again");
+    toast.error(error?.response.data.message);
     throw error;
   }
 };

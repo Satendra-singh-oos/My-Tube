@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { calculateTimeAgo } from "../../constants";
+import { calculateTimeAgo, formatDuration } from "../../constants";
 
 const VideoListView = ({
   thumbnail,
@@ -31,7 +31,7 @@ const VideoListView = ({
               />
             </div>
             <span className="absolute bottom-1 right-1 inline-block rounded bg-black px-1.5 text-sm">
-              {duration}
+              {formatDuration(duration)}
             </span>
           </div>
         </div>

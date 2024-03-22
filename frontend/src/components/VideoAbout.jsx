@@ -6,6 +6,7 @@ import { toggleSubscription } from "../helper/subscriptionapicall";
 import { toggleSubscriptionSuccess } from "../store/Slice/subscribeSlice";
 import AddToPlaylist from "./AddToPlaylist";
 import { calculateTimeAgo } from "../../constants";
+import { useNavigate } from "react-router-dom";
 
 const VideoAbout = ({
   avatar,
@@ -43,6 +44,8 @@ const VideoAbout = ({
       .catch((err) => console.log(err));
   };
 
+  const navigate = useNavigate();
+
   return (
     <>
       {currentVideo && currentVideo.length > 0 ? (
@@ -76,10 +79,16 @@ const VideoAbout = ({
                   src={avatar}
                   alt="Channel-Avatar"
                   className="h-full w-full rounded-full"
+                  onClick={() => navigate(`/channel/${channelName}`)}
                 />
               </div>
               <div className="block">
-                <p className="text-gray-200">{channelName}</p>
+                <p
+                  className="text-gray-200"
+                  onClick={() => navigate(`/channel/${channelName}`)}
+                >
+                  {channelName}
+                </p>
                 <p className="text-sm text-gray-400">
                   {totalSubscriber} Subscribers
                 </p>

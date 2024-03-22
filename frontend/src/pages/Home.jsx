@@ -33,7 +33,7 @@ const Home = () => {
         console.error(error);
         // Handle errors here
       });
-  }, []);
+  }, [dispatch]);
 
   if (videos.length === 0) {
     return <NoVideoFound />;

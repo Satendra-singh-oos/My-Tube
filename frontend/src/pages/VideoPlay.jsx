@@ -22,6 +22,7 @@ const VideoPlay = () => {
   const dispatch = useDispatch();
   const { videoId } = useParams();
   const userId = useSelector((state) => state.auth.userData?._id);
+  const totalComments = useSelector((state) => state.comment?.totalComments);
 
   useEffect(() => {
     if (videoId) {
@@ -38,12 +39,11 @@ const VideoPlay = () => {
         .catch((err) => console.log(err));
     }
     return () => dispatch(cleanUpComments());
-  }, [videoId, dispatch]);
+  }, [videoId, dispatch, totalComments]);
 
   const currentVideo = useSelector((state) => state.video?.video);
 
   const comments = useSelector((state) => state.comment?.comments);
-  const totalComments = useSelector((state) => state.comment?.totalComments);
   const hasNextPage = useSelector((state) => state.comment?.hasNextPage);
 
   return (

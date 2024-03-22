@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserPlaylists } from "../../helper/playlistapicalls";
 import { getPlaylistByUserSuccess } from "../../store/Slice/playlistSlice";
-import { PlayListCard } from "../../components";
+import { NoVideoFound, PlayListCard } from "../../components";
 import { calculateTimeAgo } from "../../../constants";
 import { useNavigate } from "react-router-dom";
 
@@ -23,7 +23,12 @@ const ChannelPlaylist = () => {
   }, [dispatch, userId]);
 
   if (playlists.length === 0) {
-    return <div className="text-center text-white">Loadinnggg...........</div>;
+    return (
+      <div className="text-center text-white">
+        {" "}
+        <NoVideoFound playlist={true} />
+      </div>
+    );
   }
 
   return (

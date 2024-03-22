@@ -6,6 +6,7 @@ const tweetSchemaValidation = Joi.object({
     .min(1)
     .allow(" ")
     .max(500)
+    .trim()
     .message(
       "Tweet Text is required to publish the comment on the video. It should only contain alphanumeric characters and some special characters."
     ),

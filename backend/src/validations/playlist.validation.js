@@ -9,10 +9,12 @@ const playlistSchemaValidation = Joi.object({
     .message(
       "Title is required to publish the video. It should only contain alphanumeric characters and some special characters."
     )
+    .trim()
     .optional(),
   description: Joi.string()
     .max(1000)
     .allow("")
+    .trim()
     .message("Description is required to publish the video")
     .optional(),
 });
