@@ -1,12 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Support = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="h-screen overflow-y-auto bg-[#121212] text-white">
         <section className="relative mx-auto max-w-3xl px-4 py-20">
           <div className="mb-16 border-b pb-16 text-center">
-            <h2 className="mb-4 text-4xl font-bold">Support Page</h2>
+            <h2 className="mb-4 text-4xl font-bold">Community Support Page</h2>
             <h3 className="text-gray-300">
               Welcome to our support page! We're here to help you make the most
               out of your experience on our platform. Below, you'll find useful
@@ -99,6 +101,15 @@ const Support = () => {
               any content uploaded to our platform complies with our usage
               guidelines and terms of service.
             </p>
+            <span className="text-xl">
+              • You Also Can Create A New Account{" "}
+              <button
+                className="underline text-[#ae7aff] ml-2"
+                onClick={() => navigate("/signup")}
+              >
+                Singup
+              </button>
+            </span>
           </div>
           <div className="mb-8">
             <h3 className="mb-4 text-2xl font-bold sm:text-2xl md:text-3xl">

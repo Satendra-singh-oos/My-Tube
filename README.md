@@ -106,13 +106,11 @@ After posting a tweet or comment, the displayed data should accurately reflect t
 
 4. **Start the backend server**:
 
-- cd backend
-- npm run dev
+- `cd backend` -` npm run dev`
 
 5. **Start the frontend development server**:
 
-- cd frontend
-- npm run dev
+- `cd frontend` -` npm run dev`
 
 6. Open [http://localhost:5173](http://localhost:5173) (or the address shown in your console) in your web browser to view the app.
 
