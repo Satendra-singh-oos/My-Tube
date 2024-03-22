@@ -42,7 +42,7 @@ const Signup = () => {
             mytube
           </div> */}
           <h2 className=" mb-6 w-full text-center text-2xl font-semibold leading-tight uppercase">
-            Sing up to create account
+            Sign up to create account
           </h2>
           <p className="mb-6 text-center text-base ">
             Already have an account ?&nbsp;
@@ -164,7 +164,7 @@ const Signup = () => {
               )}
 
               <Button type="submit" className="w-full rounded-md">
-                Sing up with Email
+                Sign up with Email
               </Button>
             </div>
           </form>

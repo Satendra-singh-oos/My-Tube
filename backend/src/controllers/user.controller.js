@@ -156,14 +156,12 @@ const loginUser = asyncHandler(async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: "None",
-      // domain: "play-my-tube-frontend.vercel.app",
     };
 
     return res
       .status(200)
       .cookie("accessToken", accessToken, options)
       .cookie("refreshToken", refreshToken, options)
-      .cookie("random", "rendom hai vaii", options)
       .json(
         new ApiResponse(
           200,
@@ -206,7 +204,6 @@ const logoutUser = asyncHandler(async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: "None",
-      //  domain: "play-my-tube-frontend.vercel.app",
     };
     return res
       .status(200)
@@ -274,7 +271,6 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     httpOnly: true,
     secure: true,
     sameSite: "None",
-    // domain: "play-my-tube-frontend.vercel.app",
   };
 
   return res
