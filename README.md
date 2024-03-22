@@ -93,6 +93,29 @@ After posting a tweet or comment, the displayed data should accurately reflect t
 
   5. **Nested Comment Section**: Implement a nested comment section to facilitate deeper discussions and interactions between users within the comment section. This feature will allow users to reply to specific comments, promoting engagement and community building.
 
+# 🏃Running the Project
+
+1. Clone the repository to your local machine.
+
+2. Run `npm install` or `yarn` in the project directory to install the required dependencies.
+
+3. **Set up environment variables**:
+
+- Create a `.env` file in both the frontend and backend folders.
+- Add the required environment variables with your credentials, referencing the `.env.sample` file.
+
+4. **Start the backend server**:
+
+- cd backend
+- npm run dev
+
+5. **Start the frontend development server**:
+
+- cd frontend
+- npm run dev
+
+6. Open [http://localhost:5173](http://localhost:5173) (or the address shown in your console) in your web browser to view the app.
+
 ## Special Thanks
 
 - A special thank you to [HiteshSir](https://www.youtube.com/@@HiteshChoudharydotcom) for providing the initial idea and valuable insights that inspired this project.
