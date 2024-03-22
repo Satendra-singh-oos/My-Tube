@@ -91,6 +91,8 @@ After posting a tweet or comment, the displayed data should accurately reflect t
 
   4. **Add Image Attachment Option in the tweet section**: Allow users to attach images to their tweets, enhancing the visual appeal and expressiveness of their posts.
 
+  5. **Nested Comment Section**: Implement a nested comment section to facilitate deeper discussions and interactions between users within the comment section. This feature will allow users to reply to specific comments, promoting engagement and community building.
+
 ## Special Thanks
 
 - A special thank you to [HiteshSir](https://www.youtube.com/@@HiteshChoudharydotcom) for providing the initial idea and valuable insights that inspired this project.
