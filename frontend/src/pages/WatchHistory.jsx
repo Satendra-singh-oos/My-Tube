@@ -17,14 +17,14 @@ const WatchHistory = () => {
 
   const Videos = useSelector((state) => state.user?.watchHistory);
 
-  if (Videos.length === 0) {
+  if (Videos?.length === 0) {
     return <NoVideoFound />;
   }
   return (
     <div class="h-screen overflow-y-auto bg-[#121212] text-white">
       <div class="flex min-h-[calc(100vh-66px)] sm:min-h-[calc(100vh-82px)]">
         <section class="w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
-          {Videos.map((video) => (
+          {Videos?.map((video) => (
             <VideoListView
               key={video._id}
               title={video?.title}

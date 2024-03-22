@@ -23,7 +23,7 @@ const LikedPage = () => {
   const likedVideos = useSelector((state) => state.like?.allLikedVideos);
   //console.log(likedVideos.map((like)=>console.log(lik)));
 
-  if (likedVideos.length === 0) {
+  if (likedVideos?.length === 0) {
     return <NoVideoFound />;
   }
 
@@ -31,7 +31,7 @@ const LikedPage = () => {
     <div className="h-screen overflow-y-auto bg-[#121212] text-white">
       <div className="flex min-h-[calc(100vh-66px)] sm:min-h-[calc(100vh-82px)]">
         <section className="w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
-          {likedVideos.map((like) => (
+          {likedVideos?.map((like) => (
             <VideoListView
               key={like._id}
               title={like.video?.title}
